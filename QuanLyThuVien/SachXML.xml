@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DanhSachSach>
+  <Sach>
+    <Ma>1</Ma>
+    <TenSach>Sach 1</TenSach>
+    <NamSanXuat>2022</NamSanXuat>
+    <TacGia>Tac Gia 1</TacGia>
+    <TheLoai>The Loai 1</TheLoai>
+    <GiaBan>50</GiaBan>
+    <SoLuong>10</SoLuong>
+    <HeSoSach>1.5</HeSoSach>
+  </Sach>
+  <Sach>
+    <Ma>2</Ma>
+    <TenSach>Sach 2</TenSach>
+    <NamSanXuat>2021</NamSanXuat>
+    <TacGia>Tac Gia 2</TacGia>
+    <TheLoai>The Loai 2</TheLoai>
+    <GiaBan>40</GiaBan>
+    <SoLuong>20</SoLuong>
+    <HeSoSach>1.8</HeSoSach>
+  </Sach>
+  <Sach>
+    <Ma>3</Ma>
+    <TenSach>Sach 3</TenSach>
+    <NamSanXuat>2021</NamSanXuat>
+    <TacGia>Tac Gia 3</TacGia>
+    <TheLoai>The Loai 3</TheLoai>
+    <GiaBan>45</GiaBan>
+    <SoLuong>22</SoLuong>
+    <HeSoSach>1.8</HeSoSach>
+  </Sach>
+  <Sach>
+    <Ma>4</Ma>
+    <TenSach>Sach 4</TenSach>
+    <NamSanXuat>2020</NamSanXuat>
+    <TacGia>Tac Gia 4</TacGia>
+    <TheLoai>The Loai 2</TheLoai>
+    <GiaBan>20</GiaBan>
+    <SoLuong>20</SoLuong>
+    <HeSoSach>2.5</HeSoSach>
+  </Sach>
+  <Sach>
+    <Ma>5</Ma>
+    <TenSach>Sach 5</TenSach>
+    <NamSanXuat>2020</NamSanXuat>
+    <TacGia>Tac Gia 5</TacGia>
+    <TheLoai>The Loai 5</TheLoai>
+    <GiaBan>60</GiaBan>
+    <SoLuong>80</SoLuong>
+    <HeSoSach>2</HeSoSach>
+  </Sach>
+</DanhSachSach>
