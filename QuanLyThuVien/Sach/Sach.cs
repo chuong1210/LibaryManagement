@@ -8,7 +8,7 @@ namespace QuanLyThuVien
 {
    public class Sach:DoiTuong 
     {
-         string ma;
+         string maSach;
          string tenSach;
          int namSanXuat;
          string tacGia;
@@ -16,7 +16,9 @@ namespace QuanLyThuVien
          double giaBan;
          int soLuong;
          double heSoSach;
+        string chatluongsach;
 
+      
         public string TenSach
         {
             get
@@ -73,13 +75,26 @@ namespace QuanLyThuVien
         {
             get
             {
-                return giaBan;
+                if (NamSanXuat > 0 &&NamSanXuat<=2 )
+                {
+                    this.chatluongsach = "Tốt";
+                    this.giaBan = soLuong * 0.95;
+                }
+                else if (NamSanXuat > 2 && NamSanXuat  <=4)
+                {
+                    this.chatluongsach = "Khá";
+                    this.giaBan = soLuong * 0.785;
+                }
+                else
+                {
+                    this.chatluongsach = "Trung bình";
+                    this.giaBan = soLuong * 0.65;
+                }
+
+                return giaBan*=1.1; //phi VAT
             }
 
-            set
-            {
-                giaBan = value;
-            }
+           
         }
 
         public int SoLuong
@@ -95,26 +110,60 @@ namespace QuanLyThuVien
             }
         }
 
-        public double HeSoSach
+    
+
+
+
+        public string MaSach
         {
             get
             {
-                return heSoSach;
+
+
+                if (maSach.Length>0&&maSach.Length == 6)
+                {
+                    char S = maSach[0];
+                    string so = maSach.Substring(1,6);
+
+                    if (S == 'S' && DoiTuong.ContainsNumber(so))
+                    {
+                        return maSach;
+                    }
+                    else
+                    {
+                        maSach = "SI0001";
+                    }
+                }
+                else
+                {
+                    maSach = "SI0001";
+                }
+
+                return maSach;
+
             }
 
-            set
-            {
-                heSoSach = value;
-            }
         }
-        public void TinhGiaBan()
+
+        public string Chatluongsach { get => chatluongsach; set => chatluongsach = value; }
+
+        public Sach(string ms, string ts, int namss, string tg, string tl, int sl)
         {
-            GiaBan = soLuong * heSoSach + 0.1 * soLuong * heSoSach; // 10% VAT
+       
+
+            maSach = ms;
+            tenSach = ts;
+            namSanXuat = namss;
+            tacGia = tg;
+            theLoai = tl;
+            soLuong = sl;
+
         }
+      
         public void NhapSach()
         {
             Console.WriteLine("Nhap ma sach : ");
-            ma = Console.ReadLine();
+            maSach = Console.ReadLine();
             Console.WriteLine("Nhap ten sach : ");
             tenSach = Console.ReadLine();
             Console.WriteLine("Nhap nam san xuat : ");
@@ -133,13 +182,13 @@ namespace QuanLyThuVien
         }
         public void XuatSach()
         {
-            Console.WriteLine("Ma sach :{0} ", ma);
-            Console.WriteLine("Ten sach :{0} ", tenSach);
-            Console.WriteLine("Nam san xuat sach :{0} ", namSanXuat);
-            Console.WriteLine("Tac gia sach :{0} ", tacGia);
-            Console.WriteLine("The Loai sach :{0} ", theLoai);
-            Console.WriteLine("So luong sach :{0} ", soLuong);
-            Console.WriteLine("He so sach :{0} ", heSoSach);
+            Console.WriteLine("Mã Sách :{0} ", MaSach);
+            Console.WriteLine("Tên sach :{0} ", TenSach);
+            Console.WriteLine("Nam san xuat sach :{0} ", NamSanXuat);
+            Console.WriteLine("Tac gia sach :{0} ", TacGia);
+            Console.WriteLine("The Loai sach :{0} ", TheLoai);
+            Console.WriteLine("So luong sach :{0} ", SoLuong);
+            Console.WriteLine("He so sach :{0} ", HeSoSach);
         }
         
        

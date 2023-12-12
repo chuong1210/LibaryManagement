@@ -25,6 +25,16 @@ namespace QuanLyThuVien
             }
 
         }
+
+
+
+        public void xuatSach()
+        {
+            foreach(Sach s in danhsachSach)
+            {
+                s.XuatSach();
+            }
+        }
         public void LuuFileXML()
         {
             string filePath = "SachXML.xml";
@@ -33,7 +43,7 @@ namespace QuanLyThuVien
             XElement danhSachSachXml = new XElement("DanhSachSach",
                 from sach in danhsachSach
                 select new XElement("Sach",
-                    new XElement("MaSach", sach.Ma),
+                    new XElement("MaSach", sach.MaSach),
                     new XElement("TenSach", sach.TenSach),
                     new XElement("NamSanXuat", sach.NamSanXuat),
                     new XElement("TacGia", sach.TacGia),
@@ -47,10 +57,10 @@ namespace QuanLyThuVien
             danhSachSachXml.Save(filePath);
         }
         // Phương thức để sửa thông tin sách và lưu vào file XML
-        public void SuaThongTinSach(int maSach, string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong, double heSoSach)
+        public void SuaThongTinSach(string maSach, string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong)
         {
             // Tìm sách cần sửa trong danh sách
-            Sach sachCanSua = danhsachSach.FirstOrDefault(sach => sach.Ma == maSach);
+            Sach sachCanSua = danhsachSach.FirstOrDefault(sach => sach.MaSach == maSach);
 
             // Nếu sách tồn tại, thực hiện sửa thông tin
             if (sachCanSua != null)
@@ -60,7 +70,6 @@ namespace QuanLyThuVien
                 sachCanSua.TacGia = tacGia;
                 sachCanSua.TheLoai = theLoai;
                 sachCanSua.SoLuong = soLuong;
-                sachCanSua.HeSoSach = heSoSach;
 
                 // Lưu danh sách sách vào file XML
                 LuuFileXML();
@@ -71,19 +80,17 @@ namespace QuanLyThuVien
             }
         }
         
-        public void ThemThongTinSach(string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong, double heSoSach)
+        public void ThemThongTinSach(string ms,string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong)
         {
-            // Tạo mới một đối tượng sách
             Sach sachMoi = new Sach
-            {
-                Ma = danhsachSach.Count + 1, // Tạo mã sách tự động (ví dụ: số lượng sách + 1)
-                TenSach = tenSach,
-                NamSanXuat = namSanXuat,
-                TacGia = tacGia,
-                TheLoai = theLoai,
-                SoLuong = soLuong,
-                HeSoSach = heSoSach
-            };
+            (
+                ms,
+                tenSach,
+               namSanXuat,
+               tacGia,
+               theLoai,
+              soLuong
+            );
 
             // Thêm sách mới vào danh sách sách
             danhsachSach.Add(sachMoi);
@@ -91,10 +98,10 @@ namespace QuanLyThuVien
             // Lưu danh sách sách vào file XML
             LuuFileXML();
         }
-        public void XoaThongTinSach(int maSach)
+        public void XoaThongTinSach(string maSach)
         {
             // Tìm sách cần xóa trong danh sách
-            Sach sachCanXoa = danhsachSach.FirstOrDefault(sach => sach.Ma == maSach);
+            Sach sachCanXoa = danhsachSach.FirstOrDefault(sach => sach.MaSach == maSach);
 
             // Nếu sách tồn tại, thực hiện xóa và lưu danh sách vào file XML
             if (sachCanXoa != null)
@@ -115,21 +122,21 @@ namespace QuanLyThuVien
                 Console.WriteLine();
             }
         }
-        public Sach TimSachDuocMuonNhieuNhat(List<PhieuMuon> danhSachPhieuMuon)
-        {
-            var sachDuocMuonNhieuNhat = danhSachPhieuMuon
-                .GroupBy(p => p.MaSach)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
+        //public Sach TimSachDuocMuonNhieuNhat(List<PhieuMuon> danhSachPhieuMuon)
+        //{
+        //    var sachDuocMuonNhieuNhat = danhSachPhieuMuon
+        //        .GroupBy(p => p.MaSach1)
+        //        .OrderByDescending(g => g.Count())
+        //        .FirstOrDefault();
 
-            if (sachDuocMuonNhieuNhat != null)
-            {
-                int maSach = sachDuocMuonNhieuNhat.Key;
-                return danhsachSach.FirstOrDefault(sach => sach.Ma == maSach);
-            }
+        //    if (sachDuocMuonNhieuNhat != null)
+        //    {
+        //        int maSach = sachDuocMuonNhieuNhat.Key;
+        //        return danhsachSach.FirstOrDefault(sach => sach.MaSach == maSach);
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
        
 

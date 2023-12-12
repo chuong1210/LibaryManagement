@@ -44,22 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DanhSachSach.cs" />
-    <Compile Include="DocGia.cs" />
-    <Compile Include="DoiTuong.cs" />
-    <Compile Include="IPhieu.cs" />
-    <Compile Include="PhieuMuon.cs" />
-    <Compile Include="PhieuTra.cs" />
+    <Compile Include="Nguoi\DanhSachDocGia.cs" />
+    <Compile Include="Nguoi\SinhVien.cs" />
+    <Compile Include="Sach\DanhSachSach.cs" />
+    <Compile Include="Nguoi\DocGia.cs" />
+    <Compile Include="Nguoi\DoiTuong.cs" />
+    <Compile Include="Phieu\IPhieu.cs" />
+    <Compile Include="Phieu\PhieuMuon.cs" />
+    <Compile Include="Phieu\PhieuTra.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sach.cs" />
-    <Compile Include="ThuThu.cs" />
+    <Compile Include="Sach\Sach.cs" />
+    <Compile Include="Nguoi\ThuThu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SachXML.xml" />
+    <Content Include="Nguoi\DanhSachDocGia.xml" />
+    <Content Include="Phieu\DanhSachPhieu.xml" />
+    <Content Include="Sach\SachXML.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

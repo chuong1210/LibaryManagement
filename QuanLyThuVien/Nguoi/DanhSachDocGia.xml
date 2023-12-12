@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<DanhSachDocGia>
+  <DocGia>
+    <MaDocGia>1</MaDocGia>
+    <DiaChi>123 Đường ABC, Thành phố XYZ</DiaChi>
+    <SoCMT>123456789</SoCMT>
+    <HeSoDocGia>1.2</HeSoDocGia>
+    <SoNamDocSach>2</SoNamDocSach>
+    <SoNgayMuonSach>15</SoNgayMuonSach>
+    <DanhSachSachMuon>
+      <Sach>Sach1</Sach>
+      <Sach>Sach2</Sach>
+    </DanhSachSachMuon>
+  </DocGia>
+  <DocGia>
+    <MaDocGia>2</MaDocGia>
+    <DiaChi>456 Đường XYZ, Thành phố ABC</DiaChi>
+    <SoCMT>987654321</SoCMT>
+    <HeSoDocGia>1.5</HeSoDocGia>
+    <SoNamDocSach>3</SoNamDocSach>
+    <SoNgayMuonSach>20</SoNgayMuonSach>
+    <DanhSachSachMuon>
+      <Sach>Sach3</Sach>
+      <Sach>Sach4</Sach>
+    </DanhSachSachMuon>
+  </DocGia>
+</DanhSachDocGia>
