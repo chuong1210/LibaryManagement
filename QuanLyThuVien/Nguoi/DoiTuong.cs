@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyThuVien
 {
-   public class DoiTuong
+ abstract  public class DoiTuong
     {
         string ten;
         int tuoi;
@@ -16,11 +16,34 @@ namespace QuanLyThuVien
         public int Tuoi { get => tuoi; set => tuoi = value; }
         public string GioiTinh { get => gioiTinh; set => gioiTinh = value; }
 
-    public    static bool ContainsNumber(string input)
+        public DoiTuong(string gt,string name,int age)
         {
-            foreach (char character in input)
+            if (gt.ToLower() == "nam" || gt.ToLower() == "nữ")
+                GioiTinh = gt;
+            else
+                gt = "Nam";
+
+
+            this.tuoi = age;
+            this.ten = name;   
+        }
+
+        public DoiTuong()
+        {
+            
+
+        }
+        public virtual void XuatThongTin()
+        {
+            Console.WriteLine("Họ tên: {0}", Ten);
+            Console.WriteLine("Tuổi: {0}" ,Tuoi);
+            Console.WriteLine("Giới tính: {0}", GioiTinh);
+        }
+        public    static bool ContainsNumber(string input)
+        {
+            foreach (char c in input)
             {
-                if (char.IsDigit(character))
+                if (char.IsDigit(c))
                 {
                     return false; 
                 }

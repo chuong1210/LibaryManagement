@@ -13,8 +13,12 @@ namespace QuanLyThuVien
         string maPhieuMuon;
         string maPhieuTra;
         string maDocGia;
+        public List<IPhieu> DanhSachPhieu;
+        public List<DocGia> DanhSachDocGia;
 
- 
+        public ThuThu(string gt, string name, int age) : base(gt, name, age)
+        {
+        }
 
         public string MaThuThu
         {

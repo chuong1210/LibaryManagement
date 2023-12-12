@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+	<DanhSachDoiTuong>
+
+	<DoiTuong>
+		<Loai>Độc giả</Loai>
+    <Ma>DG0001</Ma>
+		<GioiTinh>Nam</GioiTinh>
+		<HoTen>Doremon</HoTen>
+		<Tuoi>200</Tuoi>
+
+		<DiaChi>Tân phú, Thành phố Hồ Chí Minh</DiaChi>
+    <SoCMT>123456789</SoCMT>
+		<NgayDangKi>2022/11/11</NgayDangKi>
+
+		<SoNamDocSach>2</SoNamDocSach>
+    <SoNgayMuonSach>15</SoNgayMuonSach>
+    <DanhSachSachMuon>
+		<Sach>
+			<MaSach>SI00001</MaSach>
+			<TenSach>Java Programming</TenSach>
+			<NamSanXuat>2022</NamSanXuat>
+			<TacGia>John Doe</TacGia>
+			<TheLoai>Thiếu nhi</TheLoai>
+			<SoLuong>2</SoLuong>
+		</Sach>
+		<Sach>
+			<MaSach>SI00001</MaSach>
+			<TenSach>C# Programming</TenSach>
+			<NamSanXuat>2011</NamSanXuat>
+			<TacGia>Bùi Công Danh</TacGia>
+			<TheLoai>Kinh tế</TheLoai>
+			<SoLuong>1</SoLuong>
+		</Sach>
+    </DanhSachSachMuon>
+  </DoiTuong>
+  <DocGia>
+    <MaThuThu>2</MaThuThu>
+	  <IPhieu>
+		  <PhieuMuon></PhieuMuon>
+		  <PhieuTra></PhieuTra>
+		  <DocGia></DocGia>
+	  </IPhieu>
+
+  </DocGia>
+</DanhSachDoiTuong>

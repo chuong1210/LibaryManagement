@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Nguoi\DanhSachDocGia.cs" />
     <Compile Include="Nguoi\SinhVien.cs" />
+    <Compile Include="PhiMuonSach.cs" />
     <Compile Include="Sach\DanhSachSach.cs" />
     <Compile Include="Nguoi\DocGia.cs" />
     <Compile Include="Nguoi\DoiTuong.cs" />
@@ -61,7 +62,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Nguoi\DanhSachDocGia.xml" />
+    <Content Include="Nguoi\DanhSachDoiTuong.xml" />
     <Content Include="Phieu\DanhSachPhieu.xml" />
     <Content Include="Sach\SachXML.xml" />
   </ItemGroup>

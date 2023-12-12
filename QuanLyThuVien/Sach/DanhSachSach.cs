@@ -22,6 +22,15 @@ namespace QuanLyThuVien
             foreach (XmlNode sachnode in SachNode)
             {
                 ////// 
+                string MaSach = sachnode.SelectSingleNode("MaSach")?.InnerText;
+                string TenSach = sachnode.SelectSingleNode("TenSach")?.InnerText;
+                int  NamSanXuat = int.Parse(sachnode.SelectSingleNode("NamSanXuat")?.InnerText);
+                string TacGia = sachnode.SelectSingleNode("TacGia")?.InnerText;
+                string TheLoai = sachnode.SelectSingleNode("TheLoai")?.InnerText;
+                int SoLuong = int.Parse(sachnode.SelectSingleNode("SoLuong")?.InnerText);
+                Sach sach = new Sach(MaSach,TenSach,NamSanXuat,TacGia,TheLoai,SoLuong);
+                danhsachSach.Add(sach);
+
             }
 
         }
@@ -48,10 +57,9 @@ namespace QuanLyThuVien
                     new XElement("NamSanXuat", sach.NamSanXuat),
                     new XElement("TacGia", sach.TacGia),
                     new XElement("TheLoai", sach.TheLoai),
-                    new XElement("SoLuong", sach.SoLuong),
-                    new XElement("HeSoSach", sach.HeSoSach)
+                    new XElement("SoLuong", sach.SoLuong)
                 )
-            );
+            ) ;
 
             // Lưu danh sách sách vào file XML
             danhSachSachXml.Save(filePath);

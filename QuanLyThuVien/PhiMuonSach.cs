@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuanLyThuVien
 {
-    public class PhieuMuon: IPhieu
+    internal interface PhiMuonSach
     {
-        string  maPhieuMuon;
+          double PhiMuonSach();
 
-        public string MaPhieuMuon { get => maPhieuMuon; set => maPhieuMuon = value; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyThuVien
 {
-   public class Sach:DoiTuong 
+   public class Sach 
     {
          string maSach;
          string tenSach;
@@ -147,11 +147,30 @@ namespace QuanLyThuVien
 
         public string Chatluongsach { get => chatluongsach; set => chatluongsach = value; }
 
+
         public Sach(string ms, string ts, int namss, string tg, string tl, int sl)
         {
-       
 
-            maSach = ms;
+
+            if (ms.Length > 0 && ms.Length <= 6)
+            {
+                char S = ms[0];
+                string so = ms.Substring(1, 5);
+
+                if (S == 'S' && DoiTuong.ContainsNumber(so))
+                {
+                    maSach = ms;
+                }
+                else
+                {
+                    maSach = "SI0001";
+                }
+            }
+            else
+            {
+                maSach = "SI0001";
+            }
+
             tenSach = ts;
             namSanXuat = namss;
             tacGia = tg;
@@ -188,7 +207,7 @@ namespace QuanLyThuVien
             Console.WriteLine("Tac gia sach :{0} ", TacGia);
             Console.WriteLine("The Loai sach :{0} ", TheLoai);
             Console.WriteLine("So luong sach :{0} ", SoLuong);
-            Console.WriteLine("He so sach :{0} ", HeSoSach);
+            //Console.WriteLine("He so sach :{0} ", HeSoSach);
         }
         
        
