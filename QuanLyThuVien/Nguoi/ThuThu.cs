@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyThuVien.Phieu;
 
 namespace QuanLyThuVien
 {
@@ -10,15 +11,36 @@ namespace QuanLyThuVien
     {
         string maThuThu;
         string maSach;
-        string maPhieuMuon;
-        string maPhieuTra;
         string maDocGia;
         public List<IPhieu> DanhSachPhieu;
-        public List<DocGia> DanhSachDocGia;
 
-        public ThuThu(string gt, string name, int age) : base(gt, name, age)
+        DanhSachPhieu dsp= new DanhSachPhieu();
+        public ThuThu(string gt, string name, int age, string matt, string ms, string Mdg) : base(gt, name, age)
         {
+            this.maThuThu = matt;
+            this.maSach = ms;
+            this.maDocGia = Mdg;
+            DanhSachPhieu = new List<IPhieu>();
+
+
+
+
+
         }
+
+        public void ThemPhieuQuanLi(IPhieu phieu )
+        {
+            if (DanhSachPhieu == null)
+            {
+                DanhSachPhieu = new List<IPhieu>();
+            }
+
+        
+            DanhSachPhieu.Add(phieu);
+        }
+
+      
+
 
         public string MaThuThu
         {
@@ -51,10 +73,8 @@ namespace QuanLyThuVien
 
         }
 
-
-
-
-
-
+        public string MaSach { get => maSach; set => maSach = value; }
+       
+        public string MaDocGia { get => maDocGia; set => maDocGia = value; }
     }
 }

@@ -8,27 +8,32 @@ using System.Xml.Linq;
 
 namespace QuanLyThuVien
 {
-   public class DanhSachSach
+   public class DanhSachSach:OperateXML
     {
-        public DanhSachSach()
-        {
-        }
+      
         List<Sach> danhsachSach = new List<Sach>();
-        public void NhapSachXML(string tenfile)
+        public void ReadTuFileXML(string tenfile)
         {
             XmlDocument file = new XmlDocument();
             file.Load(tenfile);
-            XmlNodeList SachNode = file.SelectNodes("DanhSachSach/Sach");
+            XmlNodeList SachNode = file.SelectNodes("/DanhSachSach/Sach");
             foreach (XmlNode sachnode in SachNode)
             {
-                ////// 
-                string MaSach = sachnode.SelectSingleNode("MaSach")?.InnerText;
-                string TenSach = sachnode.SelectSingleNode("TenSach")?.InnerText;
-                int  NamSanXuat = int.Parse(sachnode.SelectSingleNode("NamSanXuat")?.InnerText);
-                string TacGia = sachnode.SelectSingleNode("TacGia")?.InnerText;
-                string TheLoai = sachnode.SelectSingleNode("TheLoai")?.InnerText;
-                int SoLuong = int.Parse(sachnode.SelectSingleNode("SoLuong")?.InnerText);
-                Sach sach = new Sach(MaSach,TenSach,NamSanXuat,TacGia,TheLoai,SoLuong);
+                string MaSach = sachnode["Ma"].InnerText;
+
+                string TenSach = sachnode["TenSach"].InnerText;
+                int  NamSanXuat = int.Parse(sachnode["NamSanXuat"].InnerText);
+                string TacGia = sachnode["TacGia"].InnerText;
+
+                string TheLoai = sachnode["TheLoai"].InnerText;
+
+                int SoLuong = int.Parse(sachnode["SoLuong"].InnerText);
+
+                double GiaBan = double.Parse(sachnode["GiaBan"].InnerText);
+
+
+                Sach sach = new Sach(MaSach,TenSach,NamSanXuat,TacGia,TheLoai,SoLuong,GiaBan);
+
                 danhsachSach.Add(sach);
 
             }
@@ -37,7 +42,35 @@ namespace QuanLyThuVien
 
 
 
-        public void xuatSach()
+        public List<Sach> AdjustmentSach( XmlNodeList sachNodes)
+        {
+
+            List<Sach> Books = new List<Sach>();
+
+
+
+            foreach (XmlNode sachNode in sachNodes)
+                {
+                 string   ms = sachNode["MaSach"].InnerText;
+                string     ts = sachNode["TenSach"].InnerText;
+                 int   nss = int.Parse(sachNode["NamSanXuat"].InnerText);
+                  string  tg = sachNode["TacGia"].InnerText;
+                    string tl = sachNode["TheLoai"].InnerText;
+                int   sl = int.Parse(sachNode["SoLuong"].InnerText);
+                double gb = double.Parse(sachNode["GiaBan"].InnerText);
+
+                Sach sach = new Sach(ms, ts, nss, tg, tl, sl,gb);
+                    danhsachSach.Add(sach);
+                    Books.Add(sach);
+
+
+                }
+            
+            return Books;
+        }
+
+
+    public void xuatSach()
         {
             foreach(Sach s in danhsachSach)
             {
@@ -46,31 +79,30 @@ namespace QuanLyThuVien
         }
         public void LuuFileXML()
         {
-            string filePath = "SachXML.xml";
+            string filePath = "../../Sach/SachXMsL.xml";
 
-            // Tạo đối tượng XElement từ danh sách sách
             XElement danhSachSachXml = new XElement("DanhSachSach",
                 from sach in danhsachSach
+
                 select new XElement("Sach",
                     new XElement("MaSach", sach.MaSach),
-                    new XElement("TenSach", sach.TenSach),
+
+            new XElement("TenSach", sach.TenSach),
                     new XElement("NamSanXuat", sach.NamSanXuat),
                     new XElement("TacGia", sach.TacGia),
                     new XElement("TheLoai", sach.TheLoai),
-                    new XElement("SoLuong", sach.SoLuong)
+                    new XElement("SoLuong", sach.SoLuong),
+                     new XElement("GiaBan", sach.GiaBan)
+
                 )
             ) ;
 
-            // Lưu danh sách sách vào file XML
             danhSachSachXml.Save(filePath);
         }
-        // Phương thức để sửa thông tin sách và lưu vào file XML
         public void SuaThongTinSach(string maSach, string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong)
         {
-            // Tìm sách cần sửa trong danh sách
             Sach sachCanSua = danhsachSach.FirstOrDefault(sach => sach.MaSach == maSach);
 
-            // Nếu sách tồn tại, thực hiện sửa thông tin
             if (sachCanSua != null)
             {
                 sachCanSua.TenSach = tenSach;
@@ -79,7 +111,6 @@ namespace QuanLyThuVien
                 sachCanSua.TheLoai = theLoai;
                 sachCanSua.SoLuong = soLuong;
 
-                // Lưu danh sách sách vào file XML
                 LuuFileXML();
             }
             else
@@ -88,7 +119,7 @@ namespace QuanLyThuVien
             }
         }
         
-        public void ThemThongTinSach(string ms,string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong)
+        public void ThemThongTinSach(string ms,string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong,double giaban)
         {
             Sach sachMoi = new Sach
             (
@@ -97,13 +128,12 @@ namespace QuanLyThuVien
                namSanXuat,
                tacGia,
                theLoai,
-              soLuong
+              soLuong,
+              giaban
             );
 
-            // Thêm sách mới vào danh sách sách
             danhsachSach.Add(sachMoi);
 
-            // Lưu danh sách sách vào file XML
             LuuFileXML();
         }
         public void XoaThongTinSach(string maSach)
@@ -130,6 +160,13 @@ namespace QuanLyThuVien
                 Console.WriteLine();
             }
         }
+
+        public void WriteVaoFileXML(string file)
+        {
+            throw new NotImplementedException();
+        }
+
+
         //public Sach TimSachDuocMuonNhieuNhat(List<PhieuMuon> danhSachPhieuMuon)
         //{
         //    var sachDuocMuonNhieuNhat = danhSachPhieuMuon
@@ -146,7 +183,7 @@ namespace QuanLyThuVien
         //    return null;
         //}
 
-       
+
 
     }
 }

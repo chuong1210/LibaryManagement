@@ -44,9 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Nguoi\DanhSachDocGia.cs" />
+    <Compile Include="Nguoi\DanhSachDoiTuong.cs" />
     <Compile Include="Nguoi\SinhVien.cs" />
+    <Compile Include="OperateXML.cs" />
+    <Compile Include="Phieu\DanhSachPhieu.cs" />
     <Compile Include="PhiMuonSach.cs" />
+    <Compile Include="Phong\Phong.cs" />
+    <Compile Include="Phong\PhongdocChungcs.cs" />
+    <Compile Include="Phong\PhongdocDoanhNhan.cs" />
+    <Compile Include="Phong\PhongdocThieuNhi.cs" />
+    <Compile Include="Phong\PhongdocThieuNien.cs" />
     <Compile Include="Sach\DanhSachSach.cs" />
     <Compile Include="Nguoi\DocGia.cs" />
     <Compile Include="Nguoi\DoiTuong.cs" />

@@ -13,12 +13,12 @@ namespace QuanLyThuVien
          int namSanXuat;
          string tacGia;
          string theLoai;
-         double giaBan;
          int soLuong;
          double heSoSach;
         string chatluongsach;
+        double giaBan;
 
-      
+
         public string TenSach
         {
             get
@@ -78,17 +78,17 @@ namespace QuanLyThuVien
                 if (NamSanXuat > 0 &&NamSanXuat<=2 )
                 {
                     this.chatluongsach = "Tốt";
-                    this.giaBan = soLuong * 0.95;
+                    this.giaBan *= soLuong * 0.95;
                 }
                 else if (NamSanXuat > 2 && NamSanXuat  <=4)
                 {
                     this.chatluongsach = "Khá";
-                    this.giaBan = soLuong * 0.785;
+                    this.giaBan *= soLuong * 0.785;
                 }
                 else
                 {
                     this.chatluongsach = "Trung bình";
-                    this.giaBan = soLuong * 0.65;
+                    this.giaBan *= soLuong * 0.65;
                 }
 
                 return giaBan*=1.1; //phi VAT
@@ -120,12 +120,13 @@ namespace QuanLyThuVien
             {
 
 
-                if (maSach.Length>0&&maSach.Length == 6)
+                if (maSach.Length == 6)
                 {
-                    char S = maSach[0];
-                    string so = maSach.Substring(1,6);
+                    string S = maSach.Substring(0,1);
+                    string so = maSach.Substring(1,5);
+                    Console.WriteLine(so);
 
-                    if (S == 'S' && DoiTuong.ContainsNumber(so))
+                    if (S == "S" && !DoiTuong.ContainsNumber(so))
                     {
                         return maSach;
                     }
@@ -148,27 +149,28 @@ namespace QuanLyThuVien
         public string Chatluongsach { get => chatluongsach; set => chatluongsach = value; }
 
 
-        public Sach(string ms, string ts, int namss, string tg, string tl, int sl)
+        public Sach(string ms, string ts, int namss, string tg, string tl, int sl,double gb)
         {
 
 
-            if (ms.Length > 0 && ms.Length <= 6)
+            if ( ms.Length == 6)
             {
-                char S = ms[0];
-                string so = ms.Substring(1, 5);
+                string S = ms.Substring(0, 1);
+                //char S = ms[0];
+                string so = ms.Substring(1, 3);
 
-                if (S == 'S' && DoiTuong.ContainsNumber(so))
+                if (S.Equals("S") && !DoiTuong.ContainsNumber(so))
                 {
-                    maSach = ms;
+                   this.maSach = ms;
                 }
                 else
                 {
-                    maSach = "SI0001";
+                    this.maSach = "SI0001";
                 }
             }
             else
             {
-                maSach = "SI0001";
+               this.maSach = "SI0001";
             }
 
             tenSach = ts;
@@ -176,6 +178,7 @@ namespace QuanLyThuVien
             tacGia = tg;
             theLoai = tl;
             soLuong = sl;
+            giaBan= gb; 
 
         }
       
@@ -202,12 +205,14 @@ namespace QuanLyThuVien
         public void XuatSach()
         {
             Console.WriteLine("Mã Sách :{0} ", MaSach);
-            Console.WriteLine("Tên sach :{0} ", TenSach);
-            Console.WriteLine("Nam san xuat sach :{0} ", NamSanXuat);
-            Console.WriteLine("Tac gia sach :{0} ", TacGia);
-            Console.WriteLine("The Loai sach :{0} ", TheLoai);
-            Console.WriteLine("So luong sach :{0} ", SoLuong);
-            //Console.WriteLine("He so sach :{0} ", HeSoSach);
+            Console.WriteLine("Tên Sách :{0} ", TenSach);
+            Console.WriteLine("Năm sản xuất Sách :{0} ", NamSanXuat);
+            Console.WriteLine("Tác giả Sách :{0} ", TacGia);
+            Console.WriteLine("Thể Loại Sách :{0} ", TheLoai);
+            Console.WriteLine("Số lượng Sách :{0} ", SoLuong);
+            Console.WriteLine("Giá bán cuối cùng của sách :{0} ", GiaBan);
+
+            Console.WriteLine("He so sach :{0} ", heSoSach);
         }
         
        

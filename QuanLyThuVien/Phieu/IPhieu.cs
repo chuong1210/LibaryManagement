@@ -8,18 +8,22 @@ using System.Threading.Tasks;
 
 namespace QuanLyThuVien
 {
-   public class IPhieu
+   public class IPhieu:OperateXML
     {
         string MaSach;
         string MaDocGia;
-        DateTime NgayMuon;
-        DateTime NgayTra;
         int SoLuongSach;
+
+        public IPhieu(string ms,string mdg,int sls)
+        {
+            this.MaSach = ms;
+            this.MaDocGia = mdg;
+            this.SoLuongSach = sls;
+        }
 
         public string MaSach1 { get => MaSach; set => MaSach = value; }
         public string MaDocGia1 { get => MaDocGia; set => MaDocGia = value; }
-        public DateTime NgayMuon1 { get => NgayMuon; set => NgayMuon = value; }
-        public DateTime NgayTra1 { get => NgayTra; set => NgayTra = value; }
+       
         public int SoLuongSach1 { get => SoLuongSach; set => SoLuongSach = value; }
 
         public void nhapDate(DateTime dt)
@@ -41,26 +45,32 @@ namespace QuanLyThuVien
 
         }
 
-        public void NhapPhieuMuon()
+        public virtual void NhapPhieu()
         {
             Console.WriteLine("Nhap ma sach :");
-            MaSach1 = Console.ReadLine();
+            MaSach = Console.ReadLine();
             Console.WriteLine("Nhap ma doc gia :");
-            MaDocGia1 = Console.ReadLine();
-            Console.WriteLine("Nhap ngay muon  (dd/MM/yyyy HH:mm:ss) :");
-            nhapDate(NgayMuon);     
-                Console.WriteLine("Nhap ngay tra  (dd/MM/yyyy HH:mm:ss) :");
-            nhapDate(NgayTra);
+            MaDocGia = Console.ReadLine();
+      
             Console.WriteLine("Nhap so luong sach :");
-            SoLuongSach1 = int.Parse(Console.ReadLine());
+            SoLuongSach = int.Parse(Console.ReadLine());
 
         }
-        public void XuatPhieuMuon()
+
+        public void ReadTuFileXML(string tenfile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteVaoFileXML(string file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void XuatPhieu()
         {
             Console.WriteLine("Ma sach :{0}", MaSach1);
             Console.WriteLine("Ma doc gia :{0}", MaDocGia1);
-            Console.WriteLine("Ngày Muon sach " + NgayMuon1.ToString("dd/MM/yyyy HH:mm:ss"));
-            Console.WriteLine("Ngay Tra sach :{0}", NgayTra1);
             Console.WriteLine("So luong sach :{0}", SoLuongSach1);
 
         }
