@@ -44,16 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Nguoi\DanhSachDoiTuong.cs" />
+    <Compile Include="InterfacePrices.cs" />
+    <Compile Include="Nguoi\DanhSachDocGia.cs" />
+    <Compile Include="Nguoi\NguoiLon.cs" />
     <Compile Include="Nguoi\SinhVien.cs" />
+    <Compile Include="Nguoi\ThieuNhi.cs" />
     <Compile Include="OperateXML.cs" />
     <Compile Include="Phieu\DanhSachPhieu.cs" />
-    <Compile Include="PhiMuonSach.cs" />
-    <Compile Include="Phong\Phong.cs" />
-    <Compile Include="Phong\PhongdocChungcs.cs" />
-    <Compile Include="Phong\PhongdocDoanhNhan.cs" />
-    <Compile Include="Phong\PhongdocThieuNhi.cs" />
-    <Compile Include="Phong\PhongdocThieuNien.cs" />
     <Compile Include="Sach\DanhSachSach.cs" />
     <Compile Include="Nguoi\DocGia.cs" />
     <Compile Include="Nguoi\DoiTuong.cs" />
@@ -63,7 +60,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sach\Sach.cs" />
-    <Compile Include="Nguoi\ThuThu.cs" />
+    <Compile Include="ThuThu\ThuThu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -72,6 +69,7 @@
     <Content Include="Nguoi\DanhSachDoiTuong.xml" />
     <Content Include="Phieu\DanhSachPhieu.xml" />
     <Content Include="Sach\SachXML.xml" />
+    <Content Include="ThuThu\ThuThu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

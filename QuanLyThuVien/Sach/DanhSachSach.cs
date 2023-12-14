@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -19,6 +22,7 @@ namespace QuanLyThuVien
             XmlNodeList SachNode = file.SelectNodes("/DanhSachSach/Sach");
             foreach (XmlNode sachnode in SachNode)
             {
+
                 string MaSach = sachnode["Ma"].InnerText;
 
                 string TenSach = sachnode["TenSach"].InnerText;
@@ -77,11 +81,52 @@ namespace QuanLyThuVien
                 s.XuatSach();
             }
         }
-        public void LuuFileXML()
+        //public void WriteVaoFileXML(string file)
+        //{
+        //    string filePath = Path.GetFullPath(file);
+        //    foreach (var item in danhsachSach)
+        //    {
+        //        item.XuatSach();
+        //    }
+
+        //    XElement danhSachSachXml = new XElement("DanhSachSach",
+
+
+
+
+        //        from sach in danhsachSach
+
+        //        select new XElement("Sach",
+        //            new XElement("MaSach", sach.MaSach),
+
+        //    new XElement("TenSach", sach.TenSach),
+        //            new XElement("NamSanXuat", sach.NamSanXuat),
+        //            new XElement("TacGia", sach.TacGia),
+        //            new XElement("TheLoai", sach.TheLoai),
+        //            new XElement("SoLuong", sach.SoLuong),
+        //             new XElement("GiaBan", sach.GiaBan)
+
+        //        )
+        //    ) ;
+        //    Console.WriteLine("After creating XElement");
+
+        //    danhSachSachXml.Save(filePath);
+        //}
+
+
+        public void LuuVaoFileXML()
         {
-            string filePath = "../../Sach/SachXMsL.xml";
+            string filePath = Path.GetFullPath("../../Sach/Sach2.xml");
+            foreach (var item in danhsachSach)
+            {
+                item.XuatSach();
+            }
 
             XElement danhSachSachXml = new XElement("DanhSachSach",
+
+
+
+
                 from sach in danhsachSach
 
                 select new XElement("Sach",
@@ -95,7 +140,7 @@ namespace QuanLyThuVien
                      new XElement("GiaBan", sach.GiaBan)
 
                 )
-            ) ;
+            );
 
             danhSachSachXml.Save(filePath);
         }
@@ -111,8 +156,7 @@ namespace QuanLyThuVien
                 sachCanSua.TheLoai = theLoai;
                 sachCanSua.SoLuong = soLuong;
 
-                LuuFileXML();
-            }
+                LuuVaoFileXML();          }
             else
             {
                 Console.WriteLine("Không tìm thấy sách có mã số {0} để sửa.", maSach);
@@ -134,7 +178,7 @@ namespace QuanLyThuVien
 
             danhsachSach.Add(sachMoi);
 
-            LuuFileXML();
+            LuuVaoFileXML();
         }
         public void XoaThongTinSach(string maSach)
         {
@@ -145,8 +189,7 @@ namespace QuanLyThuVien
             if (sachCanXoa != null)
             {
                 danhsachSach.Remove(sachCanXoa);
-                LuuFileXML();
-            }
+                LuuVaoFileXML();        }
             else
             {
                 Console.WriteLine("Không tìm thấy sách có mã số {0} để xóa.", maSach);
@@ -163,8 +206,84 @@ namespace QuanLyThuVien
 
         public void WriteVaoFileXML(string file)
         {
-            throw new NotImplementedException();
+
+            XmlDocument doc = new XmlDocument();
+
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlElement root = doc.DocumentElement;
+            doc.InsertBefore(xmlDeclaration, root);
+
+            XmlElement danhSachDoiTuongElement = doc.CreateElement("DanhSachSach");
+            doc.AppendChild(danhSachDoiTuongElement);
+
+
+
+
+            int n;
+            Console.WriteLine("Nhập phần tử sách cần thêm");
+            n = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Sách thứ {0}:", i + 1);
+
+                XmlElement doiTuongElement = doc.CreateElement("Sach");
+                danhSachDoiTuongElement.AppendChild(doiTuongElement);
+            
+                XmlElement MaSachElement = doc.CreateElement("Ma");
+                Console.WriteLine("Nhập Mã sách:");
+                string mpm = Console.ReadLine();
+                MaSachElement.InnerText = mpm;
+                doiTuongElement.AppendChild(MaSachElement);
+
+                XmlElement TenSachElement = doc.CreateElement("TenSach");
+                Console.WriteLine("Nhập Tên sách:");
+                string ms = Console.ReadLine();
+                TenSachElement.InnerText = ms;
+                doiTuongElement.AppendChild(TenSachElement);
+
+                XmlElement NamssElement = doc.CreateElement("NamSanXuat");
+                Console.WriteLine("Nhap Năm sản xuất:");
+                int namss = int.Parse(Console.ReadLine());
+                NamssElement.InnerText = namss.ToString();
+                doiTuongElement.AppendChild(NamssElement);
+
+              
+                XmlElement GiabanElement = doc.CreateElement("GiaBan");
+                Console.WriteLine("Nhập Giá sách: ");
+                double gb = double.Parse(Console.ReadLine());
+                GiabanElement.InnerText = gb.ToString();
+                doiTuongElement.AppendChild(GiabanElement);
+
+                XmlElement tacgiaElement = doc.CreateElement("TacGia");
+                Console.WriteLine("Nhập Tên tác giả: ");
+                string tg = Console.ReadLine();
+                tacgiaElement.InnerText = tg;
+                doiTuongElement.AppendChild(tacgiaElement);
+
+
+
+                XmlElement theloaiElement = doc.CreateElement("TheLoai");
+                Console.WriteLine("Nhập Tên thể loại: ");
+                string tl = Console.ReadLine();
+                theloaiElement.InnerText = tl;
+                doiTuongElement.AppendChild(theloaiElement);
+
+                XmlElement SoLuongElement = doc.CreateElement("SoLuong");
+                Console.WriteLine("Nhap Số lượng sách: ");
+                int sls = int.Parse(Console.ReadLine());
+                SoLuongElement.InnerText = sls.ToString();
+                doiTuongElement.AppendChild(SoLuongElement);
+
+            }
+
+
+
+            doc.Save(file);
+            ReadTuFileXML(file);
         }
+
+
 
 
         //public Sach TimSachDuocMuonNhieuNhat(List<PhieuMuon> danhSachPhieuMuon)

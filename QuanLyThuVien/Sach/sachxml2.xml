@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DanhSachSach>
+  <Sach>
+    <Ma>2</Ma>
+    <TenSach>2</TenSach>
+    <NamSanXuat>23</NamSanXuat>
+    <GiaBan>1</GiaBan>
+    <TacGia>4</TacGia>
+    <TheLoai>5</TheLoai>
+    <SoLuong>2</SoLuong>
+  </Sach>
+</DanhSachSach>

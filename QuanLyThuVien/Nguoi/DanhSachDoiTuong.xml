@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<DanhSachDoiTuong>
+<DanhSachDocGia>
 
-	<DoiTuong>
-		<Loai>Độc giả</Loai>
+	<DocGia>
+		<Loai>Sinh viên</Loai>
 		<Ma>DG0001</Ma>
 		<GioiTinh>Nam</GioiTinh>
 		<HoTen>Doremon</HoTen>
@@ -11,41 +11,69 @@
 
 		<DiaChi>Tân phú, Thành phố Hồ Chí Minh</DiaChi>
 		<SoCMT>123456789</SoCMT>
-		<NgayDangKi>2022/11/11</NgayDangKi>
-
-		<SoNamDocSach>2</SoNamDocSach>
-		<SoNgayMuonSach>15</SoNgayMuonSach>
+		<NgayDangKi>2022-11-11</NgayDangKi>
+		<TenTruong>Truong A</TenTruong>
+		<TenLop>Lop A</TenLop>
 		<DanhSachSachMuon>
 			<Sach>
-				<MaSach>SI00001</MaSach>
 				<TenSach>Java Programming</TenSach>
-				<NamSanXuat>2022</NamSanXuat>
-				<TacGia>John Doe</TacGia>
-				<TheLoai>Thiếu nhi</TheLoai>
-				<GiaBan>100000</GiaBan>
-				<SoLuong>2</SoLuong>
+				
 			</Sach>
 			<Sach>
-				<MaSach>SI00001</MaSach>
 				<TenSach>C# Programming</TenSach>
-				<NamSanXuat>2011</NamSanXuat>
-				<TacGia>Bùi Công Danh</TacGia>
-				<TheLoai>Kinh tế</TheLoai>
-				<GiaBan>900000</GiaBan>
-
-				<SoLuong>1</SoLuong>
+				
 			</Sach>
 		</DanhSachSachMuon>
-	</DoiTuong>
+	</DocGia>
 
-	<DoiTuong>
-		<Loai>Thủ thư</Loai>
-		<MaThuThu>TT31</MaThuThu>
-		<IPhieu>
-			<PhieuMuon></PhieuMuon>
-			<PhieuTra></PhieuTra>
-			<Ma></Ma>
-		</IPhieu>
-	</DoiTuong>
+	<DocGia>
 
-</DanhSachDoiTuong>
+			<Loai>Thiếu nhi</Loai>
+		<Ma>DG0002</Ma>
+		<GioiTinh>Nữ</GioiTinh>
+		<HoTen>Fukuda</HoTen>
+		<Tuoi>10</Tuoi>
+
+		<DiaChi>Quận 10, Thành phố Hồ Chí Minh</DiaChi>
+		<SoCMT>222666</SoCMT>
+		<NgayDangKi>2012-11-10</NgayDangKi>
+
+		<NguoiGiamHo>ABC</NguoiGiamHo>
+		<DanhSachSachMuon>
+			<Sach>
+				<TenSach>Java Programming</TenSach>
+
+			</Sach>
+		</DanhSachSachMuon>
+
+		
+
+			</DocGia>
+
+	<DocGia>
+
+		<Loai>Người lớn</Loai>
+		<Ma>DG0003</Ma>
+		<GioiTinh>Nam</GioiTinh>
+		<HoTen>Tokuda</HoTen>
+		<Tuoi>70</Tuoi>
+
+		<DiaChi>Tokyo, Thành phố Hồ Chí Minh</DiaChi>
+		<SoCMT>1232314</SoCMT>
+		<NgayDangKi>2002-11-10</NgayDangKi>
+		<CongViec>Thợ sửa ống nước</CongViec>
+
+		<DanhSachSachMuon>
+			<Sach>
+				<TenSach>Ruby programing</TenSach>
+
+			</Sach>
+		</DanhSachSachMuon>
+
+
+
+	</DocGia>
+
+
+
+</DanhSachDocGia>

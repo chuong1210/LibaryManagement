@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DanhSachDocGia>
+  <DocGia>
+    <GioiTinh>nam</GioiTinh>
+    <HoTen>hosa</HoTen>
+    <Tuoi>2</Tuoi>
+    <Ma>323145</Ma>
+    <DiaChi>2321</DiaChi>
+    <NgayDangKi>2022-10-10</NgayDangKi>
+    <SoCMT>asa</SoCMT>
+    <DanhSachSachMuon>
+      <Sach>
+        <TenSach>sa</TenSach>
+      </Sach>
+    </DanhSachSachMuon>
+    <Loai>Thiếu nhi</Loai>
+    <NguoiGiamHo>Nam</NguoiGiamHo>
+  </DocGia>
+  <DocGia>
+    <GioiTinh>N?</GioiTinh>
+    <HoTen>as</HoTen>
+    <Tuoi>2</Tuoi>
+    <Ma>321656</Ma>
+    <DiaChi>2</DiaChi>
+    <NgayDangKi>2010-10-10</NgayDangKi>
+    <SoCMT>2</SoCMT>
+    <DanhSachSachMuon>
+      <Sach>
+        <TenSach>3</TenSach>
+      </Sach>
+    </DanhSachSachMuon>
+    <Loai>Thiếu nhi</Loai>
+    <NguoiGiamHo>Cha</NguoiGiamHo>
+  </DocGia>
+</DanhSachDocGia>

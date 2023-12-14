@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuanLyThuVien.Phong
+namespace QuanLyThuVien
 {
-    internal class PhongdocDoanhNhan
+    internal interface InterfacePrices
     {
+        double GiamGiaLamThe();
+
     }
 }

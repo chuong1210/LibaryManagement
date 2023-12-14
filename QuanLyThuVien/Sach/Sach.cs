@@ -19,6 +19,8 @@ namespace QuanLyThuVien
         double giaBan;
 
 
+
+
         public string TenSach
         {
             get
@@ -110,9 +112,19 @@ namespace QuanLyThuVien
             }
         }
 
-    
 
 
+        public static bool ContainsNumber(string input)
+        {
+            foreach (char c in input)
+            {
+                if (char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public string MaSach
         {
@@ -126,7 +138,7 @@ namespace QuanLyThuVien
                     string so = maSach.Substring(1,5);
                     Console.WriteLine(so);
 
-                    if (S == "S" && !DoiTuong.ContainsNumber(so))
+                    if (S == "S" && !ContainsNumber(so))
                     {
                         return maSach;
                     }
@@ -159,7 +171,7 @@ namespace QuanLyThuVien
                 //char S = ms[0];
                 string so = ms.Substring(1, 3);
 
-                if (S.Equals("S") && !DoiTuong.ContainsNumber(so))
+                if (S.Equals("S") && !ContainsNumber(so))
                 {
                    this.maSach = ms;
                 }
@@ -212,7 +224,6 @@ namespace QuanLyThuVien
             Console.WriteLine("Số lượng Sách :{0} ", SoLuong);
             Console.WriteLine("Giá bán cuối cùng của sách :{0} ", GiaBan);
 
-            Console.WriteLine("He so sach :{0} ", heSoSach);
         }
         
        

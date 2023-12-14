@@ -14,20 +14,26 @@ namespace QuanLyThuVien
         {
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("Chào bạn"   );
-            //string file = "../../Nguoi/DanhSachDoiTuong.xml";
-            //DanhSachDocGia danhSach = new DanhSachDocGia();
-            //danhSach.ReadTuFileXML(file);
-            //danhSach.XuatList();
+            Console.WriteLine("Chào bạn");
+            // string file = "../../Nguoi/DanhSachDoiTuong.xml";
+            // DanhSachDocGia danhSach = new DanhSachDocGia();
+            //danhSach.ReadTuFileXML("../../Nguoi/DSDT2.xml");
+            //danhSach.WriteVaoFileXML("../../Nguoi/DSDT2.xml");
+            // danhSach.XuatList();
 
-            DanhSachSach ds = new DanhSachSach();
-            //ds.ReadTuFileXML("../../sach/sachxml.xml");
-            ds.LuuFileXML();
-            ds.xuatSach();
 
-            //DanhSachPhieu dsp=new DanhSachPhieu();
+
+
+
+            //DanhSachSach ds = new DanhSachSach();
+            //ds.ReadTuFileXML("../../Sach/sachxml2.xml");
+            //ds.WriteVaoFileXML("../../Sach/sachxml2.xml");
+            //ds.xuatSach();
+
+            DanhSachPhieu dsp = new DanhSachPhieu();
             //dsp.ReadTuFileXML("../../Phieu/DanhSachPhieu.xml");
-            //dsp.XuatDanhSachPhieu();
+            dsp.WriteVaoFileXML("../../Phieu/DSP2.xml");
+            dsp.XuatDanhSachPhieu();
 
         }
     }

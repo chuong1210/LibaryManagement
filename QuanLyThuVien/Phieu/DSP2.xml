@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DanhSachPhieu>
+  <IPhieu>
+    <Loai>Phiếu trả</Loai>
+    <MaPhieuTra>1</MaPhieuTra>
+    <MaSach>2</MaSach>
+    <MaDocGia>3</MaDocGia>
+    <NgayTra>2022-10-11</NgayTra>
+    <SoLuongSach>2</SoLuongSach>
+  </IPhieu>
+</DanhSachPhieu>

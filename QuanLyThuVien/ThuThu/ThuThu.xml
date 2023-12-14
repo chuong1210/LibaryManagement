@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThuThu>
+	<MaThuThu>TT31</MaThuThu>
+	<GioiTinh>Nữ</GioiTinh>
+	<Tuoi>20</Tuoi>
+	<HoTen>SUPPER SAIYA LEVEL 4</HoTen>
+	<DachSachPhieu>
+
+		<IPhieu>
+			<Loai>Phiếu mượn</Loai>
+			<MaPhieuMuon>PM001</MaPhieuMuon>
+
+			<MaSach>MS001</MaSach>
+			<MaDocGia>DG001</MaDocGia>
+			<NgayMuon>2023-12-01</NgayMuon>
+			<SoLuongSach>2</SoLuongSach>
+		</IPhieu>
+
+		<IPhieu>
+			<Loai>Phiếu trả</Loai>
+			<MaPhieuTra>PT001</MaPhieuTra>
+			<MaSach>MS001</MaSach>
+			<MaDocGia>DG001</MaDocGia>
+			<NgayTra>2023-12-15</NgayTra>
+			<SoLuongSach>229328</SoLuongSach>
+		</IPhieu>
+	</DachSachPhieu>
+
+</ThuThu>
