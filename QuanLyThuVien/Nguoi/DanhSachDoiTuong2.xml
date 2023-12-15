@@ -2,18 +2,18 @@
 <DanhSachDocGia>
   <DocGia>
     <GioiTinh>nam</GioiTinh>
-    <HoTen>an</HoTen>
+    <HoTen>ho</HoTen>
     <Tuoi>20</Tuoi>
     <Ma>20</Ma>
-    <DiaChi>3</DiaChi>
-    <NgayDangKi>2022-10-10</NgayDangKi>
-    <SoCMT>2</SoCMT>
+    <DiaChi>30</DiaChi>
+    <NgayDangKi>2020-10-12</NgayDangKi>
+    <SoCMT>2000</SoCMT>
     <DanhSachSachMuon>
       <Sach>
         <TenSach>2</TenSach>
       </Sach>
     </DanhSachSachMuon>
-    <Loai>Thiếu nhi</Loai>
-    <NguoiGiamHo>cha</NguoiGiamHo>
+    <Loai>Người lớn</Loai>
+    <CongViec>Bac si</CongViec>
   </DocGia>
 </DanhSachDocGia>

@@ -136,7 +136,6 @@ namespace QuanLyThuVien
                 {
                     string S = maSach.Substring(0,1);
                     string so = maSach.Substring(1,5);
-                    Console.WriteLine(so);
 
                     if (S == "S" && !ContainsNumber(so))
                     {
@@ -158,7 +157,27 @@ namespace QuanLyThuVien
 
         }
 
-        public string Chatluongsach { get => chatluongsach; set => chatluongsach = value; }
+        public string Chatluongsach
+        {
+            get
+            {
+                if (DateTime.Now.Year- NamSanXuat > 0 && DateTime.Now.Year - NamSanXuat  <= 2)
+                {
+                    this.chatluongsach = "Tốt";
+                    this.giaBan *= soLuong * 0.95;
+                }
+                else if (DateTime.Now.Year - NamSanXuat > 2 && DateTime.Now.Year - NamSanXuat <= 4)
+                {
+                    this.chatluongsach = "Khá";
+                }
+                else
+                {
+                    this.chatluongsach = "Trung bình";
+                }
+
+                return chatluongsach;
+            }
+        }
 
 
         public Sach(string ms, string ts, int namss, string tg, string tl, int sl,double gb)
@@ -222,6 +241,8 @@ namespace QuanLyThuVien
             Console.WriteLine("Tác giả Sách :{0} ", TacGia);
             Console.WriteLine("Thể Loại Sách :{0} ", TheLoai);
             Console.WriteLine("Số lượng Sách :{0} ", SoLuong);
+            Console.WriteLine("Chất lượng Sách :{0} ", Chatluongsach);
+
             Console.WriteLine("Giá bán cuối cùng của sách :{0} ", GiaBan);
 
         }

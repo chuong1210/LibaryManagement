@@ -27,9 +27,10 @@ namespace QuanLyThuVien.Nguoi
             int songaycothedung = 180 - soNgaySuDung;
             if (songaycothedung <= 0)
             {
-                Console.WriteLine("The Het Han");
+                Console.WriteLine("Thẻ hết hạn.");
             }
-            Console.WriteLine(" The con co the su dung {0} ngay", songaycothedung);
+            else
+            Console.WriteLine("Hạn sử dụng của thẻ còn {0} ngày", songaycothedung);
         }
         public double GiamGiaLamThe()
         {
@@ -43,7 +44,8 @@ namespace QuanLyThuVien.Nguoi
         {
             base.XuatThongTin();
             Console.WriteLine("Người giám hộ:{0} ", NguoiGiamho);
-            kiemTraThe();
+           
+
 
         }
     }

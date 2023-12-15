@@ -21,6 +21,21 @@ namespace QuanLyThuVien.Phieu
             danhSachPhieu = new List<IPhieu>();
         }
 
+        public void XoaPhieuTheoMa(string maPhieu)
+        {
+            IPhieu phieuCanXoa = danhSachPhieu.Find(e => e is PhieuMuon && ((PhieuMuon)e).MaPhieuMuon1 == maPhieu)
+                               ?? danhSachPhieu.Find(e => e is PhieuTra && ((PhieuTra)e).MaPhieutra1 == maPhieu);
+
+            if (phieuCanXoa != null)
+            {
+                danhSachPhieu.Remove(phieuCanXoa);
+                Console.WriteLine("Đã xóa phiếu có mã số {0}.", maPhieu);
+            }
+            else
+            {
+                Console.WriteLine("Không tìm thấy phiếu có mã số {0} để xóa.", maPhieu);
+            }
+        }
 
         public void ThemListPhieu(List<IPhieu> dsp)
         {
@@ -36,6 +51,7 @@ namespace QuanLyThuVien.Phieu
 
             foreach (XmlNode node in nodes)
             {
+
                 IPhieu Ip;
 
                 string loai = node["Loai"].InnerText;
@@ -73,58 +89,6 @@ namespace QuanLyThuVien.Phieu
             }
         }
 
-        //public List<IPhieu> AdjusmentPhieu(XmlNodeList nodes)
-        //{
-
-        //    List<IPhieu> listP = new List<IPhieu>();
-        //    foreach (XmlNode node in nodes)
-        //    {
-        //        IPhieu Ip;
-
-        //        string loai = node["Loai"].InnerText;
-        //        string ms = node["MaSach"].InnerText;
-        //        string mp = node["MaDocGia"].InnerText;
-        //        int sl = int.Parse(node["SoLuongSach"].InnerText);
-
-        //        if (loai == "Phiếu mượn")
-        //        {
-
-
-        //            string mPm = node["MaPhieuMuon"].InnerText;
-
-
-        //            DateTime ngayM = new DateTime();/*= DateTime.Parse(node["NgayDangKi"].InnerText);*/
-        //            string ngayDangKiStr = node.SelectSingleNode("NgayMuon")?.InnerText;
-
-        //            ngayM = DateTime.ParseExact(ngayDangKiStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-        //            Ip = new PhieuMuon(ms, mp, sl, mPm, ngayM);
-        //            listP.Add(Ip);
-
-
-        //        }
-
-        //        else if (loai == "Phiếu trả")
-        //        {
-
-
-        //            string mPt = node["MaPhieuTra"].InnerText;
-
-
-        //            DateTime ngayT = new DateTime();/*= DateTime.Parse(node["NgayDangKi"]?.InnerText);*/
-        //            string ngayDangKiStr = node.SelectSingleNode("NgayTra")?.InnerText;
-
-        //            ngayT = DateTime.ParseExact(ngayDangKiStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-        //            Ip = new PhieuMuon(ms, mp, sl, mPt, ngayT);
-        //            listP.Add(Ip);
-
-
-        //        }
-        //    }
-        //    return listP;
-
-        //}
 
 
         public void WriteVaoFileXML(string file)
@@ -269,10 +233,15 @@ namespace QuanLyThuVien.Phieu
             if (danhSachPhieu.Count > 0)
             {
                 Console.WriteLine("Danh sách phiếu:");
+                int i = 1;
                 foreach (IPhieu phieu in danhSachPhieu)
                 {
+                    
+                    Console.WriteLine("*-------------------------------------------------------*");
+                    Console.WriteLine("Thông tin của Phiếu thứ {0}: ", i);
                     phieu.XuatPhieu();
-                    Console.WriteLine("--------------");
+                    Console.WriteLine("--------------------------------------------------------");
+                    i++;
                 }
             }
             else

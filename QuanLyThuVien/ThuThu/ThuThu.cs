@@ -12,7 +12,7 @@ namespace QuanLyThuVien
     public class ThuThu : OperateXML
     {
         string maThuThu;
-        public List<IPhieu> DanhSachPhieu;
+        public List<IPhieu> dsp;
         string gioitinh;
         string name;
         int tuoi;
@@ -28,18 +28,48 @@ namespace QuanLyThuVien
             return true;
         }
 
-        DanhSachPhieu dsp = new DanhSachPhieu();
-        
+      
+
+        public string Gioitinh { get => gioitinh; set => gioitinh = value; }
+        public string Name { get => name; set => name = value; }
+        public int Tuoi { get => tuoi; set => tuoi = value; }
+        public string MaThuThu { get => maThuThu; set => maThuThu = value; }
+
         public ThuThu(string gt, string name, int age, string matt)
         {
-            this.maThuThu = matt;
+
+            if (matt.Length == 4)
+            {
+                string TT = matt.Substring(0, 2);
+
+                string so = matt.Substring(2,4);
+                if (TT == "TT" && !ContainsNumber(so))
+                {
+                    this.MaThuThu=matt;
+                }
+                else
+                {
+                    this.MaThuThu = "TTI1";
+                }
+            }
+            else
+            {
+                this.MaThuThu = "TTI1";
+            }
+
             this.gioitinh = gt;
             this.name = name;
             this.tuoi = age;
-            DanhSachPhieu = new List<IPhieu>();
+            dsp = new List<IPhieu>();
 
 
 
+
+        }
+
+        public ThuThu()
+        {
+            dsp = new List<IPhieu>();
 
         }
 
@@ -74,7 +104,7 @@ namespace QuanLyThuVien
                         DateTime ngayMuon = DateTime.Parse(phieuNode["NgayMuon"].InnerText);
                         int soLuongSachMuon = int.Parse(phieuNode["SoLuongSach"].InnerText);
 
-                        PhieuMuon phieuMuon = new PhieuMuon(maSachMuon, maDocGiaMuon, soLuongSachMuon, maPhieuMuon, ngayMuon);
+                        IPhieu phieuMuon = new PhieuMuon(maSachMuon, maDocGiaMuon, soLuongSachMuon, maPhieuMuon, ngayMuon);
                         danhSachPhieu.Add(phieuMuon);
                     }
                     else if (loaiPhieu == "Phiếu trả")
@@ -85,20 +115,28 @@ namespace QuanLyThuVien
                         DateTime ngayTra = DateTime.Parse(phieuNode["NgayTra"].InnerText);
                         int soLuongSachTra = int.Parse(phieuNode["SoLuongSach"].InnerText);
 
-                        PhieuTra phieuTra = new PhieuTra(maSachTra, maDocGiaTra, soLuongSachTra, maPhieuTra, ngayTra);
+                        IPhieu phieuTra = new PhieuTra(maSachTra, maDocGiaTra, soLuongSachTra, maPhieuTra, ngayTra);
                         danhSachPhieu.Add(phieuTra);
                     }
                 }
 
-                dsp.ThemListPhieu(danhSachPhieu);
-                ThuThu thuThu = new ThuThu(MaThuThu, GioiTinh, Tuoi, HoTen);
+                dsp = danhSachPhieu.ToList();
+                //ThuThu thuThu = new ThuThu(MaThuThu, GioiTinh, Tuoi, HoTen);
+                this.maThuThu = MaThuThu;
+                this.gioitinh = GioiTinh;
+                this.tuoi = Tuoi;
+                this.name = HoTen;
+
             }
 
         }
 
         public void WriteVaoFileXML(string file)
         {
+
+
             XmlDocument doc = new XmlDocument();
+
 
             XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
             XmlElement root = doc.DocumentElement;
@@ -141,7 +179,7 @@ namespace QuanLyThuVien
 
             Console.Write("Nhập số lượng phiếu cần thêm: ");
             int slp = int.Parse(Console.ReadLine());
-            XmlElement danhSachDoiTuongElement = doc.CreateElement("DachSachPhieu");
+            XmlElement danhSachDoiTuongElement = doc.CreateElement("DanhSachPhieu");
             doc.AppendChild(danhSachDoiTuongElement);
 
             for (int i = 0; i < slp; i++)
@@ -195,7 +233,7 @@ namespace QuanLyThuVien
                     doiTuongElement.AppendChild(SoLuongElement);
 
                 }
-                else if(loaiPhieu.Equals("phiếu trả") || loaiPhieu.Equals("phieu trả"))
+                else if(loaiPhieu.Equals("phiếu trả") || loaiPhieu.Equals("phieu tra"))
                 {
                     loaiElement.InnerText = "Phiếu mượn";
                     doiTuongElement.AppendChild(loaiElement);
@@ -228,7 +266,7 @@ namespace QuanLyThuVien
                     doiTuongElement.AppendChild(ngayTraElement);
 
                     XmlElement SoLuongElement = doc.CreateElement("SoLuongSach");
-                    Console.WriteLine("Nhap số lượng sách");
+                    Console.WriteLine("Nhập số lượng sách:");
                     int sls = int.Parse(Console.ReadLine());
                     SoLuongElement.InnerText = sls.ToString();
                     doiTuongElement.AppendChild(SoLuongElement);
@@ -244,62 +282,38 @@ namespace QuanLyThuVien
 
         public void XuatThongTin()
         {
+            Console.WriteLine("Họ tên: {0}",Name);
+            Console.WriteLine("Tuổi: {0}", Tuoi);
+            Console.WriteLine("Giới tính: {0}", Gioitinh );
+            Console.WriteLine("Mã Thủ thư: {0}", MaThuThu);
             xuatPhieuql();
         }
         public void xuatPhieuql()
         {
+            Console.WriteLine( "--------------------------------");
             Console.WriteLine("Danh sách Phiếu thủ thư quản lí:");
 
-            foreach (IPhieu phieu in DanhSachPhieu)
+            foreach (IPhieu phieu in dsp)
             {
                 phieu.XuatPhieu();
 
             }
         }
+        DanhSachPhieu DanhSachPhieu = new DanhSachPhieu();
         public void ThemPhieuQuanLi(IPhieu phieu)
         {
             if (DanhSachPhieu == null)
             {
-                DanhSachPhieu = new List<IPhieu>();
+                dsp = new List<IPhieu>();
             }
 
 
-            DanhSachPhieu.Add(phieu);
+            dsp.Add(phieu);
         }
 
      
 
-        public string MaThuThu
-        {
-            get
-            {
-
-
-                if (maThuThu.Length == 4)
-                {
-                    string DG = maThuThu.Substring(0, 2);
-                    string so = maThuThu.Substring(2);
-
-                    if (DG == "DG" && !ContainsNumber(so))
-                    {
-                        return maThuThu;
-                    }
-                    else
-                    {
-                        maThuThu = "TTI1";
-                    }
-                }
-                else
-                {
-                    maThuThu = "TTI1";
-                }
-
-                return maThuThu;
-
-            }
-
-        }
-
+       
     }
 }
     

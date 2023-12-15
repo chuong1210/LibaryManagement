@@ -1,12 +1,12 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <DanhSachSach>
   <Sach>
-    <Ma>2</Ma>
-    <TenSach>2</TenSach>
-    <NamSanXuat>23</NamSanXuat>
-    <GiaBan>1</GiaBan>
-    <TacGia>4</TacGia>
-    <TheLoai>5</TheLoai>
-    <SoLuong>2</SoLuong>
+    <Ma>01</Ma>
+    <TenSach>Ngày mai tôi bi?n m?t c?u s? h?i sinh</TenSach>
+    <NamSanXuat>2022</NamSanXuat>
+    <GiaBan>30000</GiaBan>
+    <TacGia>hà quang tu?n</TacGia>
+    <TheLoai>trinh tHám</TheLoai>
+    <SoLuong>10</SoLuong>
   </Sach>
 </DanhSachSach>

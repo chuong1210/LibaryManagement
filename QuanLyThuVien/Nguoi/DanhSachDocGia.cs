@@ -20,10 +20,132 @@ namespace QuanLyThuVien.Nguoi
 
         public void XuatList()
         {
+            int i = 1;
+
             foreach (var item in ListDG)
             {
+                Console.WriteLine("*-------------------------------------------------------*");
+                Console.WriteLine("Thông tin của độc giả thứ {0}: ", i);
+                i++;
+
                 item.XuatThongTin();
             }
+        }
+
+
+        public void TimDocGiaTheoDiaChi(string diaChi)
+        {
+            string dc = diaChi.Trim().ToLowerInvariant();
+            List<DocGia> dsTimKiem = ListDG.Where(dg => dg.DiaChi.Trim().ToLowerInvariant().Equals(dc)).ToList();
+            Console.WriteLine("\nKết quả tìm kiếm:");
+            if (dsTimKiem.Count>0)
+            {
+                foreach (DocGia docGia in dsTimKiem)
+                {
+
+                    docGia.XuatThongTin();
+                    Console.WriteLine("----------------------------------");
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("Không tìm thây độc giả có địa chỉ {0}", diaChi);
+            }
+        }
+
+public double TinhTuoiTrungBinh()
+        {
+            if (ListDG.Count == 0)
+                return 0;
+
+            int tongTuoi = 0;
+            foreach (var docGia in ListDG)
+            {
+                tongTuoi += docGia.Tuoi;
+            }
+
+            return (double)tongTuoi / ListDG.Count;
+        }
+
+        public void XuatDocGiaChuaTraSach()
+        {
+            Console.WriteLine("Danh sách độc giả chưa trả sách:");
+            foreach (var docGia in ListDG)
+            {
+                if (docGia.DanhSachSachMuon.Count > 0)
+                {
+                    docGia.XuatThongTin();
+                    Console.WriteLine("-----------------------------");
+                }
+             
+            }
+        }
+        public void SapXepDocGiaTheoTen()
+        {
+            var dsSapXep = ListDG.OrderBy(dg => dg.Hoten).ToList();
+
+            if (dsSapXep.Count > 0)
+            {
+                Console.WriteLine("Danh sách sau khi sắp xếp theo tên:");
+                foreach (var docGia in dsSapXep)
+                {
+                    docGia.XuatThongTin();
+                    Console.WriteLine("---------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Danh sách rỗng.");
+            }
+        }
+        public void docgiaNguoilonGV()
+        {
+         
+                Console.WriteLine("Danh sách người lớn là giáo viên:");
+            foreach (DocGia dg in ListDG)
+            {
+
+                if (dg is NguoiLon)
+                {
+                    NguoiLon t = (NguoiLon)dg;
+                    if (t.Congviec.Trim().ToLowerInvariant() == "Giao vien" || t.Congviec.Trim().ToLowerInvariant() == "giao vien" ||
+                        t.Congviec.Trim().ToLowerInvariant() == "Giáo viên"||t.Congviec.Trim().ToLowerInvariant() == "giáo viên")
+                            {
+
+
+                        dg.XuatThongTin();
+                        Console.WriteLine("---------------------------------");
+                    }
+                }
+                }
+            
+           
+            
+        }
+
+        public void sapxepDGtheoNhom()
+        {
+
+            foreach (DocGia dg in ListDG)
+            {
+
+                if (dg is NguoiLon)
+                {
+                    NguoiLon t = (NguoiLon)dg;
+                    if (t.Congviec.Trim().ToLowerInvariant() == "Giao vien" || t.Congviec.Trim().ToLowerInvariant() == "giao vien" ||
+                        t.Congviec.Trim().ToLowerInvariant() == "Giáo viên" || t.Congviec.Trim().ToLowerInvariant() == "giáo viên")
+                    {
+
+
+                        dg.XuatThongTin();
+                        Console.WriteLine("---------------------------------");
+                    }
+                }
+            }
+
+
+
         }
         public void ReadTuFileXML(string file)
         {
@@ -31,9 +153,9 @@ namespace QuanLyThuVien.Nguoi
             XmlDocument read = new XmlDocument();
             read.Load(file);
             XmlNodeList nodes = read.SelectNodes("/DanhSachDocGia/DocGia");
-
             foreach (XmlNode node in nodes)
             {
+
                 DocGia dg;
 
                 string loai = node["Loai"].InnerText;
@@ -87,7 +209,6 @@ namespace QuanLyThuVien.Nguoi
                     string tt = node["TenTruong"].InnerText;
                     string tl = node["TenLop"].InnerText;
 
-                    Console.WriteLine("Ten truong"+tt);
 
                     dg = new SinhVien(gioitinh, ten, tuoi, madg, diachi, ngayDk, soCmt, tt, tl);
 
@@ -111,6 +232,7 @@ namespace QuanLyThuVien.Nguoi
 
 
                     dg = new ThieuNhi(gioitinh, ten, tuoi, madg, diachi, ngayDk, soCmt, ngh);
+
 
                     XmlNodeList sachNodes = node.SelectNodes("DanhSachSachMuon/Sach");
 
@@ -137,155 +259,66 @@ namespace QuanLyThuVien.Nguoi
 
                 
         }
-        
-
-        //public void WriteVaoFileXML(string file)
-        //{
-        //    XmlDocument doc = new XmlDocument();
-
-        //    XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-        //    XmlElement root = doc.DocumentElement;
-        //    doc.InsertBefore(xmlDeclaration, root);
-
-        //    XmlElement danhSachDoiTuongElement = doc.CreateElement("DanhSachDoiTuong");
-        //    doc.AppendChild(danhSachDoiTuongElement);
-
-        //    foreach (DocGia dg in ListDT)
-        //    {
-
-        //        XmlElement doiTuongElement = doc.CreateElement("DoiTuong");
-        //        danhSachDoiTuongElement.AppendChild(doiTuongElement);
-
-        //        XmlElement loaiElement = doc.CreateElement("Loai");
-
-        //        Console.WriteLine("Nhập đối tượng cần quản lí:");
-        //        Console.WriteLine("1 - Độc giả || 2 - Thủ Thư:");
-
-        //        int option;
-        //        option = int.Parse(Console.ReadLine());
 
 
-        //        if (option == 1)
-        //        {
-        //            loaiElement.InnerText = "Độc giả";
-        //            doiTuongElement.AppendChild(loaiElement);
-
-        //            XmlElement gioiTinhElement = doc.CreateElement("GioiTinh");
-        //            gioiTinhElement.InnerText = dg.GioiTinh;
-        //            doiTuongElement.AppendChild(gioiTinhElement);
-
-        //            XmlElement tenElement = doc.CreateElement("HoTen");
-        //            tenElement.InnerText = dg.Ten;
-        //            doiTuongElement.AppendChild(tenElement);
-
-        //            XmlElement tuoiElement = doc.CreateElement("Tuoi");
-        //            tuoiElement.InnerText = dg.Tuoi.ToString();
-        //            doiTuongElement.AppendChild(tuoiElement);
-
-        //            XmlElement maElement = doc.CreateElement("Ma");
-        //            maElement.InnerText = dg.MaDg1;
-        //            Console.WriteLine(dg.MaDg1);
-        //            doiTuongElement.AppendChild(maElement);
-
-        //            XmlElement diaChiElement = doc.CreateElement("DiaChi");
-        //            diaChiElement.InnerText = dg.DiaChi;
-        //            doiTuongElement.AppendChild(diaChiElement);
-
-        //            XmlElement ngayDangKiElement = doc.CreateElement("NgayDangKi");
-        //            ngayDangKiElement.InnerText = dg.NgayDangki.ToString("yyyy/MM/dd");
-        //            doiTuongElement.AppendChild(ngayDangKiElement);
-
-        //            XmlElement soCmtElement = doc.CreateElement("SoCMT");
-        //            soCmtElement.InnerText = dg.SoCmt;
-        //            doiTuongElement.AppendChild(soCmtElement);
-
-        //            XmlElement danhSachSachMuonElement = doc.CreateElement("DanhSachSachMuon");
-        //            doiTuongElement.AppendChild(danhSachSachMuonElement);
-
-        //            foreach (Sach sach in dg.DanhSachSachMuon)
-        //            {
-        //                XmlElement sachElement = doc.CreateElement("Sach");
-        //                danhSachSachMuonElement.AppendChild(sachElement);
-
-        //                XmlElement maSachElement = doc.CreateElement("MaSach");
-        //                maSachElement.InnerText = sach.MaSach;
-        //                sachElement.AppendChild(maSachElement);
-
-        //                XmlElement tenSachElement = doc.CreateElement("TenSach");
-        //                tenSachElement.InnerText = sach.TenSach;
-        //                Console.WriteLine( sach.TenSach);
-        //                sachElement.AppendChild(tenSachElement);
-
-        //                XmlElement namSanXuatElement = doc.CreateElement("NamSanXuat");
-        //                namSanXuatElement.InnerText = sach.NamSanXuat.ToString();
-        //                sachElement.AppendChild(namSanXuatElement);
-
-        //                XmlElement tacGiaElement = doc.CreateElement("TacGia");
-        //                tacGiaElement.InnerText = sach.TacGia;
-        //                sachElement.AppendChild(tacGiaElement);
-
-        //                XmlElement theLoaiElement = doc.CreateElement("TheLoai");
-        //                theLoaiElement.InnerText = sach.TheLoai;
-        //                sachElement.AppendChild(theLoaiElement);
-
-        //                XmlElement soLuongElement = doc.CreateElement("SoLuong");
-        //                soLuongElement.InnerText = sach.SoLuong.ToString();
-        //                sachElement.AppendChild(soLuongElement);
-        //            }
-        //        }
-        //    }
-
-        //    doc.Save(file);
-        //}
 
         public void WriteVaoFileXML(string file)
         {
             XmlDocument doc = new XmlDocument();
 
-            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            XmlElement root = doc.DocumentElement;
-            doc.InsertBefore(xmlDeclaration, root);
+            if (System.IO.File.Exists(file))
+            {
+                Console.WriteLine("--------------------- THÔNG BÁO ---------------------  ");
+                Console.WriteLine( "Không thể ghi vào file vì đã tồn tại đối tượng trước đó");
+                doc.Load(file);
+                ReadTuFileXML(file);
+            }
+            else
+            {
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = doc.DocumentElement;
+                doc.InsertBefore(xmlDeclaration, root);
 
-            XmlElement danhSachDoiTuongElement = doc.CreateElement("DanhSachDocGia");
-            doc.AppendChild(danhSachDoiTuongElement);
+                XmlElement danhSachDoiTuongElement = doc.CreateElement("DanhSachDocGia");
+                doc.AppendChild(danhSachDoiTuongElement);
 
-          
 
-              
+
+
 
 
                 //Console.WriteLine("Nhập đối tượng cần quản lí:");
                 //Console.WriteLine("1 - Độc giả || 2 - Thủ Thư:");
 
 
-              
-                
-            Console.WriteLine("Cho biết Đối tượng độc giả cần quản lí:");
-            int options;
 
-            Console.WriteLine("0 - Sinh viên   || 1 - Thiếu nhi || 2 - Người lớn");
-          
-            options = int.Parse(Console.ReadLine());
-            while (options < 0 || options > 2)
-            {
-                Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng nhập lại:");
-                int.TryParse(Console.ReadLine(), out options);
-            }
-            Console.WriteLine($"Nhập phần tử cần thêm cho đối tượng {dgs[options]}");
 
-            int n ;
-            n = int.Parse(Console.ReadLine());
-            for (int i = 0; i < n; i++)
+                Console.WriteLine("Cho biết Đối tượng độc giả cần quản lí:");
+                int options;
+
+                Console.WriteLine("0 - Sinh viên   || 1 - Thiếu nhi || 2 - Người lớn");
+
+                options = int.Parse(Console.ReadLine());
+                while (options < 0 || options > 2)
                 {
-                XmlElement doiTuongElement = doc.CreateElement("DocGia");
-                danhSachDoiTuongElement.AppendChild(doiTuongElement);
+                    Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng nhập lại:");
+                    int.TryParse(Console.ReadLine(), out options);
+                }
+                Console.WriteLine($"Nhập phần tử cần thêm cho đối tượng {dgs[options]}");
+
+                int n;
+                n = int.Parse(Console.ReadLine());
+                for (int i = 0; i < n; i++)
+                {
+                    XmlElement doiTuongElement = doc.CreateElement("DocGia");
+                    danhSachDoiTuongElement.AppendChild(doiTuongElement);
 
 
 
-                XmlElement gioiTinhElement = doc.CreateElement("GioiTinh");
+                    XmlElement gioiTinhElement = doc.CreateElement("GioiTinh");
                     Console.WriteLine("Nhập giới tính độc giả (Nam/Nữ):");
 
-                     string  gioitinh=   Console.ReadLine();
+                    string gioitinh = Console.ReadLine();
                     gioiTinhElement.InnerText = gioitinh;
                     doiTuongElement.AppendChild(gioiTinhElement);
 
@@ -299,7 +332,7 @@ namespace QuanLyThuVien.Nguoi
                     XmlElement tuoiElement = doc.CreateElement("Tuoi");
                     Console.WriteLine("Nhập tuổi độc giả:");
 
-                    int tuoi =int.Parse ( Console.ReadLine());
+                    int tuoi = int.Parse(Console.ReadLine());
                     tuoiElement.InnerText = tuoi.ToString();
                     doiTuongElement.AppendChild(tuoiElement);
 
@@ -317,7 +350,7 @@ namespace QuanLyThuVien.Nguoi
                     diaChiElement.InnerText = diachi;
                     doiTuongElement.AppendChild(diaChiElement);
 
-                   
+
                     XmlElement ngayDangKiElement = doc.CreateElement("NgayDangKi");
                     Console.Write("Nhập ngày đăng kí theo định dạng (yyyy-MM-dd): ");
                     DateTime NgayDk = new DateTime();
@@ -342,82 +375,91 @@ namespace QuanLyThuVien.Nguoi
 
 
 
-                        
+
+
+                    int m;
+                    Console.Write("Nhập phần tử sách đã đọc cần thêm: ");
+                    m = int.Parse(Console.ReadLine());
+                    for (int j = 0; j < m; j++)
+                    {
+                        XmlElement tenSachElement = doc.CreateElement("TenSach");
+                        Console.WriteLine("Nhập tên sách đã đọc");
                         XmlElement sachElement = doc.CreateElement("Sach");
                         danhSachSachMuonElement.AppendChild(sachElement);
 
-
-             XmlElement tenSachElement = doc.CreateElement("TenSach");
-                Console.WriteLine("Nhập tên sách đã đọc");
-                string TenSach = Console.ReadLine();
-                    tenSachElement.InnerText = TenSach;
-                       sachElement.AppendChild(tenSachElement);
-
-                if (options == 0)
-                {
-                   XmlElement loaiElement = doc.CreateElement("Loai");
-                    
-                    loaiElement.InnerText = "Sinh viên";
-                    doiTuongElement.AppendChild(loaiElement);
-
-                    XmlElement truongElement = doc.CreateElement("TenTruong");
-                    Console.WriteLine("Nhập tên trường");
-                    string tentruong=Console.ReadLine();
-                    truongElement.InnerText=tentruong;
-                    doiTuongElement.AppendChild(truongElement);
+                        string TenSach = Console.ReadLine();
+                        tenSachElement.InnerText = TenSach;
+                        sachElement.AppendChild(tenSachElement);
+                    }
 
 
-                    XmlElement lopElement = doc.CreateElement("TenLop");
-                    Console.WriteLine("Nhập tên lớp");
-                    string tenlop = Console.ReadLine();
-                    lopElement.InnerText = tenlop;
-                    doiTuongElement.AppendChild(lopElement);
 
+                    if (options == 0)
+                    {
+                        XmlElement loaiElement = doc.CreateElement("Loai");
+
+                        loaiElement.InnerText = "Sinh viên";
+                        doiTuongElement.AppendChild(loaiElement);
+
+                        XmlElement truongElement = doc.CreateElement("TenTruong");
+                        Console.WriteLine("Nhập tên trường");
+                        string tentruong = Console.ReadLine();
+                        truongElement.InnerText = tentruong;
+                        doiTuongElement.AppendChild(truongElement);
+
+
+                        XmlElement lopElement = doc.CreateElement("TenLop");
+                        Console.WriteLine("Nhập tên lớp");
+                        string tenlop = Console.ReadLine();
+                        lopElement.InnerText = tenlop;
+                        doiTuongElement.AppendChild(lopElement);
+
+
+                    }
+
+                    else if (options == 2)
+                    {
+
+                        XmlElement loaiElement = doc.CreateElement("Loai");
+
+                        loaiElement.InnerText = "Người lớn";
+                        doiTuongElement.AppendChild(loaiElement);
+                        XmlElement cvElement = doc.CreateElement("CongViec");
+
+                        Console.WriteLine("Nhập tên công việc");
+                        string cv = Console.ReadLine();
+                        cvElement.InnerText = cv;
+                        doiTuongElement.AppendChild(cvElement);
+
+
+
+
+                    }
+
+                    else if (options == 1)
+                    {
+                        XmlElement loaiElement = doc.CreateElement("Loai");
+
+                        loaiElement.InnerText = "Thiếu nhi";
+                        doiTuongElement.AppendChild(loaiElement);
+                        XmlElement nghElement = doc.CreateElement("NguoiGiamHo");
+
+                        Console.WriteLine("Nhập tên người giám hộ");
+                        string ngh = Console.ReadLine();
+                        nghElement.InnerText = ngh;
+                        doiTuongElement.AppendChild(nghElement);
+                    }
+
+                    Console.WriteLine("Lưu danh sách độc giả thành công");
 
                 }
 
-              else  if (options == 2)
-                {
-
-                    XmlElement loaiElement = doc.CreateElement("Loai");
-
-                    loaiElement.InnerText = "Người lớn";
-                    doiTuongElement.AppendChild(loaiElement);
-                    XmlElement cvElement = doc.CreateElement("CongViec");
-
-                    Console.WriteLine("Nhập tên công việc");
-                    string cv = Console.ReadLine();
-                    cvElement.InnerText = cv;
-                    doiTuongElement.AppendChild(cvElement);
-
-              
 
 
-                }
+                doc.Save(file);
+                ReadTuFileXML(file);
 
-            else    if (options == 1)
-                {
-                    XmlElement loaiElement = doc.CreateElement("Loai");
-
-                    loaiElement.InnerText = "Thiếu nhi";
-                    doiTuongElement.AppendChild(loaiElement);
-                    XmlElement nghElement = doc.CreateElement("NguoiGiamHo");
-
-                    Console.WriteLine("Nhập tên người giám hộ");
-                    string ngh = Console.ReadLine();
-                    nghElement.InnerText = ngh;
-                    doiTuongElement.AppendChild(nghElement);
-
-                }
-
-
-                }
-
-
-
-            doc.Save(file);
-            ReadTuFileXML(file);
-
+            }
         }
 
     }

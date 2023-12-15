@@ -23,21 +23,22 @@ namespace QuanLyThuVien.Nguoi
 
         public double GiamGiaLamThe()
         {
-            throw new NotImplementedException();
+            return 0.7 * DocGia.tienThe;
         }
 
         public override void kiemTraThe()
         {
             DateTime ngayHienTai = DateTime.Now;
 
-            TimeSpan thoiGianSuDung = ngayHienTai - base.ngayDangki;
+            TimeSpan thoiGianSuDung = ngayHienTai - base.NgayDangki;
             int soNgaySuDung = thoiGianSuDung.Days;
             int songaycothedung = 360 - soNgaySuDung;
             if (songaycothedung <= 0)
             {
-                Console.WriteLine("The Het Han");
+                Console.WriteLine("Thẻ hết hạn");
             }
-            Console.WriteLine(" The con co the su dung {0} ngay", songaycothedung);
+            else
+            Console.WriteLine("Hạn sử dụng của thẻ còn {0} ngày", songaycothedung);
         }
 
         public double PhiMuonSach()
@@ -47,14 +48,15 @@ namespace QuanLyThuVien.Nguoi
 
         public override double tienLamThe()
         {
-            throw new NotImplementedException();
+            return DocGia.tienThe - GiamGiaLamThe();
         }
 
         public override void XuatThongTin()
         {
             base.XuatThongTin();
             Console.WriteLine("Tên trường: {0}",this.Tentruong);
-            Console.WriteLine("Tên Lớp:{0}", this.Tenlop);
+            Console.WriteLine("Tên Lớp: {0}", this.Tenlop);
+          
 
         }
     }

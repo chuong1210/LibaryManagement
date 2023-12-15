@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyThuVien.Nguoi
 {
-    internal class NguoiLon : DocGia, InterfacePrices
+    internal class NguoiLon : DocGia
     {
         string congviec;
 
@@ -20,21 +20,33 @@ namespace QuanLyThuVien.Nguoi
         public override void XuatThongTin()
         {
             base.XuatThongTin();
-            Console.WriteLine("Tên công việc "+ Congviec);
+            Console.WriteLine("Tên công việc: "+ Congviec);
+
         }
-        public double GiamGiaLamThe()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public override void kiemTraThe()
         {
-            throw new NotImplementedException();
+            DateTime ngayHienTai = DateTime.Now;
+
+            TimeSpan thoiGianSuDung = ngayHienTai - base.NgayDangki;
+            int soNgaySuDung = thoiGianSuDung.Days;
+            int songaycothedung = 720 - soNgaySuDung;
+            if (songaycothedung <= 0)
+            {
+                Console.WriteLine("Thẻ đã hết hạn");
+            }
+            else
+            Console.WriteLine("Hạn sử dụng của thẻ còn {0} ngày", songaycothedung);
         }
 
         public override double tienLamThe()
         {
-            throw new NotImplementedException();
+            if (Congviec.Trim().ToLower() == "giao vien" || Congviec.Trim().ToLower() == "giang vien" || Congviec.Trim().ToLower() == "giáo viên" || Congviec.Trim().ToLower() == "giảng viên")
+            {
+                return 0;
+            }
+            return DocGia.tienThe;
         }
     }
 }

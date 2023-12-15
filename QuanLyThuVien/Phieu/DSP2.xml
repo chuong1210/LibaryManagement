@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <DanhSachPhieu>
   <IPhieu>
-    <Loai>Phiếu trả</Loai>
-    <MaPhieuTra>1</MaPhieuTra>
-    <MaSach>2</MaSach>
-    <MaDocGia>3</MaDocGia>
-    <NgayTra>2022-10-11</NgayTra>
-    <SoLuongSach>2</SoLuongSach>
+    <Loai>Phiếu mượn</Loai>
+    <MaPhieuMuon>PM001</MaPhieuMuon>
+    <MaSach>S0000001</MaSach>
+    <MaDocGia>2020</MaDocGia>
+    <NgayMuon>2018-03-04</NgayMuon>
+    <SoLuongSach>10</SoLuongSach>
   </IPhieu>
 </DanhSachPhieu>

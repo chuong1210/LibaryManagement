@@ -76,43 +76,25 @@ namespace QuanLyThuVien
 
     public void xuatSach()
         {
-            foreach(Sach s in danhsachSach)
+            if (danhsachSach.Count > 0)
             {
-                s.XuatSach();
+                foreach (Sach s in danhsachSach)
+                {
+                    s.XuatSach();
+                    Console.WriteLine("------------------------------");
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("Danh sách sách trống");
             }
         }
-        //public void WriteVaoFileXML(string file)
-        //{
-        //    string filePath = Path.GetFullPath(file);
-        //    foreach (var item in danhsachSach)
-        //    {
-        //        item.XuatSach();
-        //    }
-
-        //    XElement danhSachSachXml = new XElement("DanhSachSach",
-
-
-
-
-        //        from sach in danhsachSach
-
-        //        select new XElement("Sach",
-        //            new XElement("MaSach", sach.MaSach),
-
-        //    new XElement("TenSach", sach.TenSach),
-        //            new XElement("NamSanXuat", sach.NamSanXuat),
-        //            new XElement("TacGia", sach.TacGia),
-        //            new XElement("TheLoai", sach.TheLoai),
-        //            new XElement("SoLuong", sach.SoLuong),
-        //             new XElement("GiaBan", sach.GiaBan)
-
-        //        )
-        //    ) ;
-        //    Console.WriteLine("After creating XElement");
-
-        //    danhSachSachXml.Save(filePath);
-        //}
-
+       
+        public int sumSach()
+        {
+            return danhsachSach.Sum(e => e.SoLuong);
+        }
 
         public void LuuVaoFileXML()
         {
@@ -180,27 +162,71 @@ namespace QuanLyThuVien
 
             LuuVaoFileXML();
         }
-        public void XoaThongTinSach(string maSach)
+        public  void XoaThongTinSachDautien(string maSach)
         {
-            // Tìm sách cần xóa trong danh sách
-            Sach sachCanXoa = danhsachSach.FirstOrDefault(sach => sach.MaSach == maSach);
+            List<Sach> removeBook = new List<Sach>();
+            string ms = maSach.Trim().ToLower();
+            Sach sachCanXoa = danhsachSach.FirstOrDefault(sach => sach.MaSach.Trim().ToLower() == ms);
 
-            // Nếu sách tồn tại, thực hiện xóa và lưu danh sách vào file XML
             if (sachCanXoa != null)
             {
                 danhsachSach.Remove(sachCanXoa);
-                LuuVaoFileXML();        }
+                Console.WriteLine("Xóa sách có mã {0} thành công.", maSach);
+
+            }
             else
             {
                 Console.WriteLine("Không tìm thấy sách có mã số {0} để xóa.", maSach);
             }
         }
+
+        public void XoaAllThongTinSach(string maSach)
+        {
+            string ms = maSach.Trim().ToLower();
+            List<Sach> removeBook = danhsachSach.FindAll(e => e.MaSach.Trim().ToLower() == ms);
+
+            if (removeBook.Count > 0)
+            {
+                danhsachSach.RemoveAll(e => e.MaSach.Trim().ToLower() == ms);
+                Console.WriteLine("Đã xóa sách có mã số {0}.", maSach);
+            }
+            else
+            {
+                Console.WriteLine("Không tìm thấy sách có mã số {0} để xóa.", maSach);
+            }
+        }
+        public void TimSachTrinhThamChatLuongTot()
+        {
+            List<Sach> sachTrinhThamChatLuongTot = danhsachSach.ToList()
+    .Where(sach =>
+            (sach.TheLoai.ToLower().Trim() == "trinh thám" && sach.Chatluongsach.ToLower() == "tốt") ||
+            (sach.TheLoai.ToLower().Trim() == "trinh tham" && sach.Chatluongsach.ToLower() == "tot"))
+                        .ToList();
+
+            if (sachTrinhThamChatLuongTot.Count > 0)
+            {
+                Console.WriteLine("Danh sách sách trinh thám có chất lượng tốt:");
+                foreach (var sach in sachTrinhThamChatLuongTot)
+                {
+                    sach.XuatSach();
+                    Console.WriteLine("--------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Không có sách trinh thám nào có chất lượng tốt.");
+            }
+
+        }
+
         public void XuatSachXML()
         {
+            int i = 1;
             foreach (Sach sach in danhsachSach)
             {
+                Console.WriteLine("*-------------------------------------------------------*");
+                Console.WriteLine("Thông tin của cuốn Sách thứ {0}: ", i);
                 sach.XuatSach();
-                Console.WriteLine();
             }
         }
 
@@ -270,7 +296,7 @@ namespace QuanLyThuVien
                 doiTuongElement.AppendChild(theloaiElement);
 
                 XmlElement SoLuongElement = doc.CreateElement("SoLuong");
-                Console.WriteLine("Nhap Số lượng sách: ");
+                Console.WriteLine("Nhập Số lượng sách: ");
                 int sls = int.Parse(Console.ReadLine());
                 SoLuongElement.InnerText = sls.ToString();
                 doiTuongElement.AppendChild(SoLuongElement);
@@ -279,28 +305,118 @@ namespace QuanLyThuVien
 
 
 
-            doc.Save(file);
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                Encoding = Encoding.UTF8
+            };
+
+            using (XmlWriter writer = XmlWriter.Create(file, settings))
+            {
+                doc.Save(writer);
+            }
             ReadTuFileXML(file);
         }
 
 
 
 
-        //public Sach TimSachDuocMuonNhieuNhat(List<PhieuMuon> danhSachPhieuMuon)
-        //{
-        //    var sachDuocMuonNhieuNhat = danhSachPhieuMuon
-        //        .GroupBy(p => p.MaSach1)
-        //        .OrderByDescending(g => g.Count())
-        //        .FirstOrDefault();
+        public void WriteVaoFileXMLkoOverride(string file)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement danhSachDoiTuongElement;
 
-        //    if (sachDuocMuonNhieuNhat != null)
-        //    {
-        //        int maSach = sachDuocMuonNhieuNhat.Key;
-        //        return danhsachSach.FirstOrDefault(sach => sach.MaSach == maSach);
-        //    }
+            if (System.IO.File.Exists(file))
+            {
+                doc.Load(file);
 
-        //    return null;
-        //}
+                 danhSachDoiTuongElement = doc.DocumentElement;
+
+            }
+            else
+            {
+
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = doc.DocumentElement;
+                doc.InsertBefore(xmlDeclaration, root);
+
+                 danhSachDoiTuongElement = doc.CreateElement("DanhSachSach");
+                doc.AppendChild(danhSachDoiTuongElement);
+            }
+            
+            int n;
+            Console.WriteLine("Nhập phần tử sách cần thêm");
+            n = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Sách thứ {0}:", i + 1);
+
+                XmlElement doiTuongElement = doc.CreateElement("Sach");
+                danhSachDoiTuongElement.AppendChild(doiTuongElement);
+
+                XmlElement MaSachElement = doc.CreateElement("Ma");
+                Console.WriteLine("Nhập Mã sách:");
+                string mpm = Console.ReadLine();
+                MaSachElement.InnerText = mpm;
+                doiTuongElement.AppendChild(MaSachElement);
+
+
+                XmlElement TenSachElement = doc.CreateElement("TenSach");
+                Console.WriteLine("Nhập Tên sách:");
+                string ms = Console.ReadLine();
+                TenSachElement.InnerText = ms;
+                doiTuongElement.AppendChild(TenSachElement);
+
+                XmlElement NamssElement = doc.CreateElement("NamSanXuat");
+                Console.WriteLine("Nhap Năm sản xuất:");
+                int namss = int.Parse(Console.ReadLine());
+                NamssElement.InnerText = namss.ToString();
+                doiTuongElement.AppendChild(NamssElement);
+
+
+                XmlElement GiabanElement = doc.CreateElement("GiaBan");
+                Console.WriteLine("Nhập Giá sách: ");
+                double gb = double.Parse(Console.ReadLine());
+                GiabanElement.InnerText = gb.ToString();
+                doiTuongElement.AppendChild(GiabanElement);
+
+                XmlElement tacgiaElement = doc.CreateElement("TacGia");
+                Console.WriteLine("Nhập Tên tác giả: ");
+                string tg = Console.ReadLine();
+                tacgiaElement.InnerText = tg;
+                doiTuongElement.AppendChild(tacgiaElement);
+
+                XmlElement theloaiElement = doc.CreateElement("TheLoai");
+                Console.WriteLine("Nhập Tên thể loại: ");
+                string tl = Console.ReadLine();
+                theloaiElement.InnerText = tl;
+                doiTuongElement.AppendChild(theloaiElement);
+
+                XmlElement SoLuongElement = doc.CreateElement("SoLuong");
+                Console.WriteLine("Nhập Số lượng sách: ");
+                int sls = int.Parse(Console.ReadLine());
+                SoLuongElement.InnerText = sls.ToString();
+                doiTuongElement.AppendChild(SoLuongElement);
+
+
+
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                Encoding = Encoding.UTF8 
+            };
+
+            using (XmlWriter writer = XmlWriter.Create(file, settings))
+            {
+                doc.Save(writer);
+            }
+
+            ReadTuFileXML(file);
+        }
+
 
 
 

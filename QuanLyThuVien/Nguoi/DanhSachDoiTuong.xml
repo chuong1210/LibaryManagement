@@ -6,12 +6,12 @@
 		<Loai>Sinh viên</Loai>
 		<Ma>DG0001</Ma>
 		<GioiTinh>Nam</GioiTinh>
-		<HoTen>Doremon</HoTen>
+		<HoTen>Lê Minh Mẫn</HoTen>
 		<Tuoi>200</Tuoi>
 
-		<DiaChi>Tân phú, Thành phố Hồ Chí Minh</DiaChi>
+		<DiaChi>Tân phú</DiaChi>
 		<SoCMT>123456789</SoCMT>
-		<NgayDangKi>2022-11-11</NgayDangKi>
+		<NgayDangKi>2023-11-11</NgayDangKi>
 		<TenTruong>Truong A</TenTruong>
 		<TenLop>Lop A</TenLop>
 		<DanhSachSachMuon>
@@ -31,17 +31,17 @@
 			<Loai>Thiếu nhi</Loai>
 		<Ma>DG0002</Ma>
 		<GioiTinh>Nữ</GioiTinh>
-		<HoTen>Fukuda</HoTen>
+		<HoTen>Goku</HoTen>
 		<Tuoi>10</Tuoi>
 
 		<DiaChi>Quận 10, Thành phố Hồ Chí Minh</DiaChi>
 		<SoCMT>222666</SoCMT>
 		<NgayDangKi>2012-11-10</NgayDangKi>
 
-		<NguoiGiamHo>ABC</NguoiGiamHo>
+		<NguoiGiamHo>Cha</NguoiGiamHo>
 		<DanhSachSachMuon>
 			<Sach>
-				<TenSach>Java Programming</TenSach>
+				<TenSach>Kim tháp tự</TenSach>
 
 			</Sach>
 		</DanhSachSachMuon>
@@ -55,7 +55,7 @@
 		<Loai>Người lớn</Loai>
 		<Ma>DG0003</Ma>
 		<GioiTinh>Nam</GioiTinh>
-		<HoTen>Tokuda</HoTen>
+		<HoTen>Yamaha</HoTen>
 		<Tuoi>70</Tuoi>
 
 		<DiaChi>Tokyo, Thành phố Hồ Chí Minh</DiaChi>
@@ -63,9 +63,30 @@
 		<NgayDangKi>2002-11-10</NgayDangKi>
 		<CongViec>Thợ sửa ống nước</CongViec>
 
+	
+
+
+
+	</DocGia>
+
+
+
+	<DocGia>
+
+		<Loai>Người lớn</Loai>
+		<Ma>DG0004</Ma>
+		<GioiTinh>Nam</GioiTinh>
+		<HoTen>MINH</HoTen>
+		<Tuoi>30</Tuoi>
+
+		<DiaChi>Ha noi</DiaChi>
+		<SoCMT>1232314</SoCMT>
+		<NgayDangKi>2023-11-10</NgayDangKi>
+		<CongViec>Giao vien</CongViec>
+
 		<DanhSachSachMuon>
 			<Sach>
-				<TenSach>Ruby programing</TenSach>
+				<TenSach>Thư</TenSach>
 
 			</Sach>
 		</DanhSachSachMuon>
@@ -73,7 +94,6 @@
 
 
 	</DocGia>
-
 
 
 </DanhSachDocGia>
