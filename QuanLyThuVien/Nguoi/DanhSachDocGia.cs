@@ -81,33 +81,80 @@ public double TinhTuoiTrungBinh()
              
             }
         }
-        public void SapXepDocGiaTheoTen()
-        {
-            var dsSapXep = ListDG.OrderBy(dg => dg.Hoten).ToList();
 
-            if (dsSapXep.Count > 0)
+        public void XoaAllThongTinDocGiaCoTheHetHan()
+        {
+
+            for (int i = ListDG.Count - 1; i >= 0; i--)
             {
-                Console.WriteLine("Danh sách sau khi sắp xếp theo tên:");
-                foreach (var docGia in dsSapXep)
+                DocGia dg = ListDG[i];
+                DateTime ngayHienTai = DateTime.Now;
+
+                TimeSpan thoiGianSuDung = ngayHienTai - dg.NgayDangki;
+                int soNgaySuDung = thoiGianSuDung.Days;
+                int songaycothedung=0;
+                if (dg is SinhVien)
                 {
-                    docGia.XuatThongTin();
-                    Console.WriteLine("---------------------------------");
+                    songaycothedung = 720 - soNgaySuDung;
                 }
+              else  if (dg is NguoiLon)
+                {
+                     songaycothedung = 360 - soNgaySuDung;
+                }
+                else if (dg is ThieuNhi)
+                {
+                    songaycothedung = 180 - soNgaySuDung;
+                }
+                if (songaycothedung < 0)
+                {
+                    ListDG.RemoveAt(i);
+                }
+            }
+        }
+        public void XoaThongTinDocGiaDautien(string mdg)
+        {
+            string mdocgia = mdg.Trim().ToLower();
+            DocGia dgCanXoa = ListDG.FirstOrDefault(sach => sach.MaDg1.Trim().ToLower() == mdocgia  );
+
+            if (dgCanXoa != null)
+            {
+                ListDG.Remove(dgCanXoa);
+                Console.WriteLine("Xóa độc giả có mã {0} thành công.", mdg);
+
             }
             else
             {
-                Console.WriteLine("Danh sách rỗng.");
+                Console.WriteLine("Không tìm thấy độc có mã số {0} để xóa.", mdg);
+            }
+        }
+        public void UpdateDiachiDocGiaTheoMa(string maDocGia, string diachi)
+        {
+            DocGia docGiaCanSua = ListDG.FirstOrDefault(dg => dg.MaDg1.Trim().ToLower() == maDocGia.Trim().ToLower());
+
+            if (docGiaCanSua != null)
+            {
+                docGiaCanSua.DiaChi = diachi;
+
+                Console.WriteLine("Sửa địa chỉ thành công!");
+                Console.WriteLine("Thông tin mới của độc giả:");
+                docGiaCanSua.XuatThongTin();
+            }
+            else
+            {
+                Console.WriteLine("Không tìm thấy độc giả có mã {0}.", maDocGia);
             }
         }
         public void docgiaNguoilonGV()
         {
          
                 Console.WriteLine("Danh sách người lớn là giáo viên:");
+            int i = 0;
             foreach (DocGia dg in ListDG)
             {
 
                 if (dg is NguoiLon)
                 {
+                    i++;
                     NguoiLon t = (NguoiLon)dg;
                     if (t.Congviec.Trim().ToLowerInvariant() == "Giao vien" || t.Congviec.Trim().ToLowerInvariant() == "giao vien" ||
                         t.Congviec.Trim().ToLowerInvariant() == "Giáo viên"||t.Congviec.Trim().ToLowerInvariant() == "giáo viên")
@@ -118,35 +165,97 @@ public double TinhTuoiTrungBinh()
                         Console.WriteLine("---------------------------------");
                     }
                 }
-                }
-            
-           
-            
+              }
+
+            Console.WriteLine(  "Có tổng cộng {0} giáo viên trong danh sách", i);
+
+
+
         }
 
-        public void sapxepDGtheoNhom()
+        public void SapXepDocGiaTheoTen()
         {
+            var dsSapXep = ListDG.OrderBy(dg => dg.Hoten).ToList();
+            int i = 1;
+
+            if (dgs.Count > 0)
+            {
+                Console.WriteLine("Danh sách sau khi sắp xếp theo tên:");
+                foreach (var docGia in dsSapXep)
+                {
+                    
+                    Console.WriteLine("Tên độc giả thứ {0} : {1} ",i, docGia.Hoten);
+                    Console.WriteLine("---------------------------------");
+                    i++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Danh sách rỗng.");
+            }
+        }
+
+        public void SapXepDGTheoNhomVaTen()
+        {
+            List<DocGia> dsNguoiLon = new List<DocGia>();
+            List<DocGia> dsSinhVien = new List<DocGia>();
+            List<DocGia> dsThieuNhi = new List<DocGia>();
 
             foreach (DocGia dg in ListDG)
             {
-
                 if (dg is NguoiLon)
                 {
-                    NguoiLon t = (NguoiLon)dg;
-                    if (t.Congviec.Trim().ToLowerInvariant() == "Giao vien" || t.Congviec.Trim().ToLowerInvariant() == "giao vien" ||
-                        t.Congviec.Trim().ToLowerInvariant() == "Giáo viên" || t.Congviec.Trim().ToLowerInvariant() == "giáo viên")
-                    {
-
-
-                        dg.XuatThongTin();
-                        Console.WriteLine("---------------------------------");
-                    }
+                    dsNguoiLon.Add(dg);
+                }
+                else if (dg is SinhVien)
+                {
+                    dsSinhVien.Add(dg);
+                }
+                else if (dg is ThieuNhi)
+                {
+                    dsThieuNhi.Add(dg);
                 }
             }
 
+            dsNguoiLon = dsNguoiLon.OrderBy(dg => dg.Hoten).ToList();
+            dsSinhVien = dsSinhVien.OrderBy(dg => dg.Hoten).ToList();
+            dsThieuNhi = dsThieuNhi.OrderBy(dg => dg.Hoten).ToList();
 
+            if (dsNguoiLon.Count > 0)
+            {
+                Console.WriteLine("Danh sách người lớn sau khi sắp xếp theo tên:");
+                foreach (DocGia nguoiLon in dsNguoiLon)
+                {
+                    nguoiLon.XuatThongTin();
+                    Console.WriteLine("---------------------------------");
+                }
+            }
 
+            if (dsSinhVien.Count > 0)
+            {
+                Console.WriteLine("Danh sách sinh viên sau khi sắp xếp theo tên:");
+                foreach (DocGia sinhVien in dsSinhVien)
+                {
+                    sinhVien.XuatThongTin();
+                    Console.WriteLine("---------------------------------");
+                }
+            }
+
+            if (dsThieuNhi.Count > 0)
+            {
+                Console.WriteLine("Danh sách thiếu nhi sau khi sắp xếp theo tên:");
+                foreach (DocGia ThieuNhi in dsThieuNhi)
+                {
+                    ThieuNhi.XuatThongTin();
+                    Console.WriteLine("---------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Không có độc giả trong danh sách.");
+            }
         }
+
         public void ReadTuFileXML(string file)
         {
 

@@ -4,7 +4,7 @@
 	<GioiTinh>Nữ</GioiTinh>
 	<Tuoi>20</Tuoi>
 	<HoTen>SUPPER SAIYA LEVEL 4</HoTen>
-	<DachSachPhieu>
+	<DanhSachPhieu>
 
 		<IPhieu>
 			<Loai>Phiếu mượn</Loai>
@@ -24,6 +24,6 @@
 			<NgayTra>2023-12-15</NgayTra>
 			<SoLuongSach>229328</SoLuongSach>
 		</IPhieu>
-	</DachSachPhieu>
+	</DanhSachPhieu>
 
 </ThuThu>

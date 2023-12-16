@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -144,7 +145,54 @@ namespace QuanLyThuVien
                 Console.WriteLine("Không tìm thấy sách có mã số {0} để sửa.", maSach);
             }
         }
-        
+
+        public void CapNhatTenSach(string maSach, string tenMoi)
+        {
+            Sach sachCanCapNhat = danhsachSach.FirstOrDefault(s => s.MaSach.Trim().ToLowerInvariant() == maSach.Trim().ToLowerInvariant());
+
+            if (sachCanCapNhat != null)
+            {
+                sachCanCapNhat.TenSach = tenMoi;
+
+                Console.WriteLine("Cập nhật tên sách thành công!");
+                Console.WriteLine( "Sách sau khi cập nhật");
+                sachCanCapNhat.XuatSach();
+
+            }
+            else
+            {
+                Console.WriteLine($"Không tìm thấy sách có mã {maSach} để cập nhật.");
+            }
+        }
+        public void ThemSach(int n)
+        {
+
+
+           
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Nhập mã sách: ");
+                string maSach = Console.ReadLine();
+                Console.WriteLine("Nhập tên sách: ");
+                string tenSach = Console.ReadLine();
+                Console.WriteLine("Nhập Năm sản xuất : ");
+                int namSanXuat = int.Parse(Console.ReadLine());
+                Console.WriteLine("Nhập tác giả : ");
+                string tacGia = Console.ReadLine();
+                Console.WriteLine("Nhập thể loại : ");
+                string theLoai = Console.ReadLine();
+                Console.WriteLine("Nhập giá bán : ");
+                double giaBan = double.Parse(Console.ReadLine());
+                Console.WriteLine("Nhập số lượng sách : ");
+                int soLuong = int.Parse(Console.ReadLine());
+
+                Sach sach = new Sach(maSach, tenSach, namSanXuat, tacGia, theLoai, soLuong, giaBan);
+                danhsachSach.Add(sach);
+
+            }
+
+
+        }
         public void ThemThongTinSach(string ms,string tenSach, int namSanXuat, string tacGia, string theLoai, int soLuong,double giaban)
         {
             Sach sachMoi = new Sach
@@ -158,13 +206,12 @@ namespace QuanLyThuVien
               giaban
             );
 
+
             danhsachSach.Add(sachMoi);
 
-            LuuVaoFileXML();
         }
         public  void XoaThongTinSachDautien(string maSach)
         {
-            List<Sach> removeBook = new List<Sach>();
             string ms = maSach.Trim().ToLower();
             Sach sachCanXoa = danhsachSach.FirstOrDefault(sach => sach.MaSach.Trim().ToLower() == ms);
 
@@ -179,6 +226,8 @@ namespace QuanLyThuVien
                 Console.WriteLine("Không tìm thấy sách có mã số {0} để xóa.", maSach);
             }
         }
+
+
 
         public void XoaAllThongTinSach(string maSach)
         {
@@ -257,7 +306,7 @@ namespace QuanLyThuVien
                 danhSachDoiTuongElement.AppendChild(doiTuongElement);
             
                 XmlElement MaSachElement = doc.CreateElement("Ma");
-                Console.WriteLine("Nhập Mã sách:");
+                Console.WriteLine("Nhập Mã sách (Vui lòng nhập đủ 6 kí tự):");
                 string mpm = Console.ReadLine();
                 MaSachElement.InnerText = mpm;
                 doiTuongElement.AppendChild(MaSachElement);

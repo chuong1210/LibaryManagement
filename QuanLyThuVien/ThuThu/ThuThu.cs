@@ -57,8 +57,10 @@ namespace QuanLyThuVien
                 this.MaThuThu = "TTI1";
             }
 
-            this.gioitinh = gt;
-            this.name = name;
+            if (gt.ToLower() == "nam" || gt.ToLower() == "nữ")
+                this.gioitinh = gt;
+            else
+                this.gioitinh = "Nam"; this.name = name;
             this.tuoi = age;
             dsp = new List<IPhieu>();
 
@@ -88,7 +90,7 @@ namespace QuanLyThuVien
                 string HoTen = ttnode["HoTen"].InnerText;
 
 
-                XmlNodeList phieuNodes = ttnode.SelectNodes("DachSachPhieu/IPhieu");
+                XmlNodeList phieuNodes = ttnode.SelectNodes("DanhSachPhieu/IPhieu");
 
                 List<IPhieu> danhSachPhieu = new List<IPhieu>();
 
@@ -180,7 +182,7 @@ namespace QuanLyThuVien
             Console.Write("Nhập số lượng phiếu cần thêm: ");
             int slp = int.Parse(Console.ReadLine());
             XmlElement danhSachDoiTuongElement = doc.CreateElement("DanhSachPhieu");
-            doc.AppendChild(danhSachDoiTuongElement);
+            thuThuElement.AppendChild(danhSachDoiTuongElement);
 
             for (int i = 0; i < slp; i++)
             {
@@ -200,7 +202,7 @@ namespace QuanLyThuVien
                     doiTuongElement.AppendChild(loaiElement);
 
                     XmlElement MaPhieuMuonElement = doc.CreateElement("MaPhieuMuon");
-                    Console.WriteLine("Nhap ma phieu muon");
+                    Console.WriteLine("Nhap ma phieu muon: ");
                     string mpm = Console.ReadLine();
                     MaPhieuMuonElement.InnerText = mpm;
                     doiTuongElement.AppendChild(MaPhieuMuonElement);

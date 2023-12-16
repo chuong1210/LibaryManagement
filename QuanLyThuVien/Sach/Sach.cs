@@ -180,6 +180,11 @@ namespace QuanLyThuVien
         }
 
 
+
+        public Sach()
+        {
+                
+        }
         public Sach(string ms, string ts, int namss, string tg, string tl, int sl,double gb)
         {
 
@@ -229,8 +234,7 @@ namespace QuanLyThuVien
             giaBan = double.Parse(Console.ReadLine());
             Console.WriteLine("Nhap so luong sach : ");
             soLuong = int.Parse(Console.ReadLine());
-            Console.WriteLine("Nhap he so sach : ");
-            heSoSach = double.Parse(Console.ReadLine());
+        
 
         }
         public void XuatSach()

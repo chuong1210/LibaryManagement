@@ -17,17 +17,24 @@ namespace QuanLyThuVien
             this.maPhieuMuon = mPm;
             this.NgayMuon= nm;  
         }
-
+        public PhieuMuon()
+        {
+            
+        }
         public string MaPhieuMuon1 { get => maPhieuMuon; set => maPhieuMuon = value; }
         public DateTime NgayMuon1 { get => NgayMuon; set => NgayMuon = value; }
 
         public override void NhapPhieu()
         {
-            base.NhapPhieu();
-            Console.Write("Nhập ngày mượn sách theo định dạng (yyyy/MM/dd): ");
-             NgayMuon = DateTime.ParseExact(Console.ReadLine(), "yyyy/MM/dd", CultureInfo.InvariantCulture);
-            Console.WriteLine( "Nhập mã phiếu mượn");
+            Console.WriteLine("Nhập mã phiếu mượn");
             maPhieuMuon = Console.ReadLine();
+            Console.Write("Nhập ngày mượn sách theo định dạng (yyyy/MM/dd): ");
+            NgayMuon = DateTime.ParseExact(Console.ReadLine(), "yyyy/MM/dd", CultureInfo.InvariantCulture);
+       
+            base.NhapPhieu();
+            
+
+
 
 
         }

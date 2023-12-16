@@ -212,9 +212,28 @@ namespace QuanLyThuVien.Phieu
             ReadTuFileXML(file);
 
         }
-        public void ThemPhieu(IPhieu phieu)
+        public void ThemPhieu(int n)
         {
-            danhSachPhieu.Add(phieu);
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Chọn loại phiếu cần nhập (Phieu Muon/Phieu Tra)");
+                string loai=Console.ReadLine();
+                if (loai.Trim().ToLower() == "phieu muon") 
+                {
+                    PhieuMuon pm = new PhieuMuon();
+                    pm.NhapPhieu();
+                    danhSachPhieu.Add(pm);
+
+                }
+               else if (loai.Trim().ToLower() == "phieu tra") 
+                {
+                    PhieuTra pt = new PhieuTra();
+
+                    pt.NhapPhieu();
+                    danhSachPhieu.Add(pt);
+
+                }
+            }
         }
 
 

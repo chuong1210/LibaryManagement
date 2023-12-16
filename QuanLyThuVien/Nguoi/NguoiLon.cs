@@ -42,10 +42,7 @@ namespace QuanLyThuVien.Nguoi
 
         public override double tienLamThe()
         {
-            if (Congviec.Trim().ToLower() == "giao vien" || Congviec.Trim().ToLower() == "giang vien" || Congviec.Trim().ToLower() == "giáo viên" || Congviec.Trim().ToLower() == "giảng viên")
-            {
-                return 0;
-            }
+            
             return DocGia.tienThe;
         }
     }

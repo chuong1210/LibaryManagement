@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ThuThu>
+  <MaThuThu>1</MaThuThu>
+  <GioiTinh>1</GioiTinh>
+  <Tuoi>1</Tuoi>
+  <HoTen>1</HoTen>
+  <DanhSachPhieu>
+    <IPhieu>
+      <Loai>Phiếu mượn</Loai>
+      <MaPhieuMuon>1</MaPhieuMuon>
+      <MaSach>2</MaSach>
+      <MaDocGia>3</MaDocGia>
+      <NgayMuon>2022-10-12</NgayMuon>
+      <SoLuongSach>2</SoLuongSach>
+    </IPhieu>
+  </DanhSachPhieu>
+</ThuThu>

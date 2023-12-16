@@ -21,6 +21,10 @@ namespace QuanLyThuVien
             this.SoLuongSach = sls;
         }
 
+        public IPhieu()
+        {
+                
+        }
         public string MaSach1 { get => MaSach; set => MaSach = value; }
         public string MaDocGia1 { get => MaDocGia; set => MaDocGia = value; }
        
@@ -47,12 +51,13 @@ namespace QuanLyThuVien
 
         public virtual void NhapPhieu()
         {
-            Console.WriteLine("Nhap ma sach :");
+
+            Console.WriteLine("Nhập mã sách :");
             MaSach = Console.ReadLine();
-            Console.WriteLine("Nhap ma doc gia :");
+            Console.WriteLine("Nhập mã độc giả :");
             MaDocGia = Console.ReadLine();
       
-            Console.WriteLine("Nhap so luong sach :");
+            Console.WriteLine("Nhập số lượng sách :");
             SoLuongSach = int.Parse(Console.ReadLine());
 
         }
@@ -69,9 +74,9 @@ namespace QuanLyThuVien
 
         public virtual void XuatPhieu()
         {
-            Console.WriteLine("Ma sach :{0}", MaSach1);
-            Console.WriteLine("Ma doc gia :{0}", MaDocGia1);
-            Console.WriteLine("So luong sach :{0}", SoLuongSach1);
+            Console.WriteLine("Mã sách :{0}", MaSach1);
+            Console.WriteLine("Mã độc giả :{0}", MaDocGia1);
+            Console.WriteLine("Số lượng sách :{0}", SoLuongSach1);
 
         }
 
