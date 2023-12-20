@@ -11,6 +11,7 @@ namespace QuanLyThuVien
 
         void ReadTuFileXML(string tenfile);
         void WriteVaoFileXML(string file);
+         bool checkMa(string ma);
 
     }
 }

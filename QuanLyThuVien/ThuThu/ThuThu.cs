@@ -313,9 +313,10 @@ namespace QuanLyThuVien
             dsp.Add(phieu);
         }
 
-     
-
-       
+        public bool checkMa(string ma)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
     

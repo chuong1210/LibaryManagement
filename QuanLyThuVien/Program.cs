@@ -17,17 +17,23 @@ namespace QuanLyThuVien
             int mainChoice;
             do
             {
-                Console.WriteLine("--------------------------------------------");
-                Console.WriteLine("\nMenu chính:");
-                Console.WriteLine("1. Quản lý danh sách độc giả");
-                Console.WriteLine("2. Quản lý danh sách sách");
-                Console.WriteLine("3. Quản lý danh sách phiếu");
-                Console.WriteLine("0. Thoát");
+                Console.WriteLine("*************************************** QUẢN LÍ THƯ VIỆN ***************************************\n");
+                Console.WriteLine("------------------------------------------------");
+                Console.WriteLine("|                 Menu chính:                  |");
+                Console.WriteLine("|          1.Quản lý danh sách độc giả         |");
+                Console.WriteLine("|          2.Quản lý danh sách sách            |");
+                Console.WriteLine("|          3.Quản lý danh sách phiếu           |");
+                Console.WriteLine("|          0.Thoát                             |");
+                Console.WriteLine("------------------------------------------------");
+
 
                 Console.Write("Chọn một tác vụ (0-3): ");
-            } while (!int.TryParse(Console.ReadLine(), out mainChoice));
-
-            switch (mainChoice)
+                while (!int.TryParse(Console.ReadLine(), out mainChoice))
+                {
+                    Console.WriteLine("Vui lòng nhập số nguyên.");
+                    Console.Write("Chọn một tác vụ (0-3): ");
+                }
+                switch (mainChoice)
             {
                 case 1:
                     ManageDocGiaMenu(fileDsDocGia, danhSachDocGia);
@@ -48,6 +54,7 @@ namespace QuanLyThuVien
                     Console.WriteLine("Chọn không hợp lệ. Vui lòng chọn lại.");
                     break;
             }
+            } while (mainChoice!=0);
         }
 
 
@@ -66,17 +73,18 @@ namespace QuanLyThuVien
                 Console.WriteLine("4. Tìm độc giả theo địa chỉ");
                 Console.WriteLine("5. Tìm độc giả là người lớn và có nghề nghiệp là giáo viên");
                 Console.WriteLine("6. Tìm độc giả chưa trả sách");
-                Console.WriteLine("7. Sắp xép theo tên độc giả");
-                Console.WriteLine("8. Sắp xép theo Nhóm và tên độc giả");
+                Console.WriteLine("7. Sắp xép theo tên độc giả và lưu lại xuống file");
+                Console.WriteLine("8. Sắp xép theo Nhóm và tên độc giả theo List");
                 Console.WriteLine("9. Cập nhật địa chỉ mới của độc giả");
                 Console.WriteLine("10. Xóa thông tin độc giả ");
-                Console.WriteLine("11. Xóa tất cả độc gỉả hết hạn sử dụng thẻ ");
+                Console.WriteLine("11. Xóa thông tin độc giả từ file XML ");
+                Console.WriteLine("12. Xóa tất cả độc gỉả hết hạn sử dụng thẻ ");
 
 
 
 
                 Console.WriteLine("0. Quay lại");
-                Console.Write("Chọn một tác vụ (0-11): ");
+                Console.Write("Chọn một tác vụ (0-12): ");
                 docGiaChoice = int.Parse(Console.ReadLine());
 
 
@@ -94,7 +102,7 @@ namespace QuanLyThuVien
 
                     case 3:
                         double tb = danhSachDocGia.TinhTuoiTrungBinh();
-                        Console.WriteLine("Tuổi trung bình: {0}", tb);
+                        Console.WriteLine("Tuổi trung bình: {0:0.00}", tb);
                         break;
 
                     case 4:
@@ -110,7 +118,7 @@ namespace QuanLyThuVien
                         danhSachDocGia.XuatDocGiaChuaTraSach();
                         break;
                     case 7:
-                        danhSachDocGia.SapXepDocGiaTheoTen();
+                        danhSachDocGia.SapXepVaLuuTheoTen(fileDsDocGia);
                         break;
 
                     case 8:
@@ -118,7 +126,7 @@ namespace QuanLyThuVien
                         break;
                     case 9:
 
-                        Console.Write("Nhập mã độc giả của địa chỉ cần sửa");
+                        Console.Write("Nhập mã độc giả của địa chỉ cần sửa: ");
 
                         string mdg = Console.ReadLine();
                         Console.Write("Nhập địa chỉ mới: ");
@@ -133,9 +141,15 @@ namespace QuanLyThuVien
                         danhSachDocGia.XoaThongTinDocGiaDautien(mDG);
                         break;
                     case 11:
+                        Console.WriteLine("Nhập mã độc giả cần xóa ");
+                        string maDG = Console.ReadLine();
+                        danhSachDocGia.XoaThongTinDocGiatufileXml(maDG);
+                        break;
+                    case 12:
                         Console.WriteLine("Đã Xóa tất cả độc gỉả đã hết hạn sử dụng thẻ  ");
                         danhSachDocGia.XoaAllThongTinDocGiaCoTheHetHan();
                         break;
+
 
 
                     case 0:
@@ -163,15 +177,19 @@ namespace QuanLyThuVien
             Console.WriteLine("4. Xóa tất cả thông tin sách");
             Console.WriteLine("5. Xóa thông tin sách đầu tiên");
             Console.WriteLine("6. Tổng số lượng sách");
-            Console.WriteLine("7. Tìm sách có thể loại thiếu nhi và có chất lượng tốt");
+            Console.WriteLine("7. Tìm sách có thể loại trinh thám và có chất lượng tốt");
             Console.WriteLine("8. Thêm sách vô List");
             Console.WriteLine("9. Cập nhật tên mới của sách theo Mã sách");
+             Console.WriteLine("10. Sắp sếp theo tên sách");
+                Console.WriteLine("11. Xóa thông tin sách đầu tiên ra khỏi file Xml");
+
+
 
 
 
                 Console.WriteLine("0. Quay lại");
 
-            Console.Write("Chọn một tác vụ (0-9): ");
+            Console.Write("Chọn một tác vụ (0-11): ");
                 sachChoice=int.Parse( Console.ReadLine());
         switch (sachChoice)
         {
@@ -215,13 +233,23 @@ namespace QuanLyThuVien
                         danhSachSach.ThemSach(n);
                         break;
                     case 9:
+                        Console.Write("Nhập mã của sách cần sửa: ");
+
+                        string ma = Console.ReadLine();
                         Console.Write("Nhập tên sách mới: ");
                         string names = Console.ReadLine();
 
-                        Console.Write("Nhập mã của sách cần sửa");
-
-                        string ma = Console.ReadLine();
-                        danhSachSach.CapNhatTenSach(names, ma);
+                     
+                        danhSachSach.CapNhatTenSach(ma, names);
+                        break;
+                    case 10:
+                        danhSachSach.SapXepVaLuuTheoTen(fileDSSach);
+                       
+                        break;
+                    case 11:
+                        Console.Write("Nhập mã sách cần xóa ra khỏi file xml: ");
+                        string mscx = Console.ReadLine();
+                        danhSachSach.XoaThongTinSachrakhoifileXml(mscx);
                         break;
 
                     case 0:
@@ -245,12 +273,13 @@ namespace QuanLyThuVien
             Console.WriteLine("1. Xuất danh sách phiếu");
             Console.WriteLine("2. Lưu danh sách phiếu vào file");
             Console.WriteLine("3. Xóa phiếu theo mã");
-                Console.WriteLine("4. Thêm phiếu vào danh sách");
+            Console.WriteLine("4. Xóa tất cả phiếu trong danh sách");
+            Console.WriteLine("5. Thêm phiếu vào danh sách");
 
 
                 Console.WriteLine("0. Quay lại");
 
-            Console.Write("Chọn một tác vụ (0-4): ");
+            Console.Write("Chọn một tác vụ (0-5): ");
                 phieuChoice = int.Parse(Console.ReadLine());
 
 
@@ -271,11 +300,15 @@ namespace QuanLyThuVien
                 string maPhieuCanXoa = Console.ReadLine();
                 danhSachPhieu.XoaPhieuTheoMa(maPhieuCanXoa);
                 break;
-                    case 4:
-                        Console.WriteLine(  "Nhập số lượng phiếu muốn thêm");
-                        int n = int.Parse(Console.ReadLine());
-                        danhSachPhieu.ThemPhieu(n);
-                        break;
+             case 4:
+                danhSachPhieu.xoaTatCaPhieu();
+               Console.WriteLine("Đã xóa tất cả các phiếu trong danh sách");
+                break;
+              case 5:
+                 Console.WriteLine(  "Nhập số lượng phiếu muốn thêm");
+                 int n = int.Parse(Console.ReadLine());
+                 danhSachPhieu.ThemPhieu(n);
+                  break;
 
                     case 0:
                 Console.WriteLine("Quay lại menu chính.");
@@ -293,12 +326,13 @@ namespace QuanLyThuVien
         {
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            string fileDsDocGia = "../../Nguoi/DanhSachDoiTuong.xml";
-            string fileDSSach = "../../Sach/sachxml2.xml";
-            string fileDSPhieu = "../../Phieu/DSP2.xml";
+            string fileDsDocGia = "../../Nguoi/DanhSachDocGia.xml";
+            string fileDSSach = "../../Sach/DanhSachSach.xml";
+            string fileDSPhieu = "../../Phieu/DanhSachPhieu.xml";
 
             DanhSachDocGia danhSachDocGia = new DanhSachDocGia();
             danhSachDocGia.ReadTuFileXML(fileDsDocGia);
+
 
             DanhSachSach danhSachSach = new DanhSachSach();
             danhSachSach.ReadTuFileXML(fileDSSach);
@@ -307,12 +341,15 @@ namespace QuanLyThuVien
             danhSachPhieu.ReadTuFileXML(fileDSPhieu);
 
 
+
+
+
             Menu(fileDsDocGia, fileDSSach, fileDSPhieu, danhSachDocGia, danhSachSach, danhSachPhieu);
 
-            ThuThu tt = new ThuThu();
-            tt.ReadTuFileXML("../../ThuThu/sasasa.xml");
-            tt.XuatThongTin();
-            tt.WriteVaoFileXML("../../ThuThu/sasasa.xml");
+            //ThuThu tt = new ThuThu();
+            //tt.ReadTuFileXML("../../ThuThu/sasasa.xml");
+            //tt.XuatThongTin();
+            //tt.WriteVaoFileXML("../../ThuThu/sasasa.xml");
 
 
 

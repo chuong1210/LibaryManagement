@@ -51,6 +51,7 @@
     <Compile Include="Nguoi\ThieuNhi.cs" />
     <Compile Include="OperateXML.cs" />
     <Compile Include="Phieu\DanhSachPhieu.cs" />
+    <Compile Include="PhuongThucDungChung.cs" />
     <Compile Include="Sach\DanhSachSach.cs" />
     <Compile Include="Nguoi\DocGia.cs" />
     <Compile Include="Phieu\IPhieu.cs" />
@@ -65,9 +66,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Nguoi\DanhSachDoiTuong.xml" />
+    <Content Include="Nguoi\DanhSachDocGia.xml" />
     <Content Include="Phieu\DanhSachPhieu.xml" />
-    <Content Include="Sach\SachXML.xml" />
+    <Content Include="Sach\DanhSachSach.xml" />
     <Content Include="ThuThu\ThuThu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

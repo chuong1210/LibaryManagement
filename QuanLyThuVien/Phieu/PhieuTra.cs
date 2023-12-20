@@ -12,6 +12,7 @@ namespace QuanLyThuVien
     {
         string maPhieutra;
         DateTime NgayTra;
+        DanhSachSach dss=new DanhSachSach();
 
         public PhieuTra(string ms, string mdg, int sls,string mPt,DateTime nt) : base(ms, mdg, sls)
         {
@@ -38,6 +39,11 @@ namespace QuanLyThuVien
             nt = DateTime.ParseExact(ngayMuonStr, "yyyy/MM/dd", CultureInfo.InvariantCulture);
 
             this.NgayTra = nt;
+
+            int tong =- base.SoLuongSach1 ;
+            dss.UpdateQuantityFromID(base.MaSach1, tong);
+
+
 
 
         }

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DanhSachSach>
+  <Sach>
+    <Ma>S00003</Ma>
+    <TenSach>abc</TenSach>
+    <NamSanXuat>2022</NamSanXuat>
+    <GiaBan>2</GiaBan>
+    <TacGia>abc</TacGia>
+    <TheLoai>abc</TheLoai>
+    <SoLuong>147</SoLuong>
+  </Sach>
+  <Sach>
+    <Ma>S00004</Ma>
+    <TenSach>bca</TenSach>
+    <NamSanXuat>2022</NamSanXuat>
+    <GiaBan>3</GiaBan>
+    <TacGia>abc</TacGia>
+    <TheLoai>abc</TheLoai>
+    <SoLuong>30</SoLuong>
+  </Sach>
+</DanhSachSach>

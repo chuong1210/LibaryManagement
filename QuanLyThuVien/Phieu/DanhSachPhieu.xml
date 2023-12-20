@@ -1,43 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <DanhSachPhieu>
-	<IPhieu>
-			<Loai>Phiếu mượn</Loai>
-		<MaPhieuMuon>PM001</MaPhieuMuon>
-
-		<MaSach>MS001</MaSach>
-			<MaDocGia>DG001</MaDocGia>
-			<NgayMuon>2023-12-01</NgayMuon>
-			<SoLuongSach>2</SoLuongSach>
-	</IPhieu>
-	<IPhieu>
-
-
-		<Loai>Phiếu mượn</Loai>
-		<MaPhieuMuon>PM002</MaPhieuMuon>
-
-		<MaSach>MS002</MaSach>
-			<MaDocGia>DG002</MaDocGia>
-			<NgayMuon>2023-12-05</NgayMuon>
-			<SoLuongSach>3</SoLuongSach>
-		</IPhieu>
-
-	<IPhieu>
-		<Loai>Phiếu trả</Loai>
-		<MaPhieuTra>PT001</MaPhieuTra>
-
-		<MaSach>MS001</MaSach>
-		<MaDocGia>DG001</MaDocGia>
-		<NgayTra>2023-12-15</NgayTra>
-		<SoLuongSach>2</SoLuongSach>
-	</IPhieu>
-	<IPhieu>
-
-		<Loai>Phiếu trả</Loai>
-		<MaPhieuTra>PT002</MaPhieuTra>
-
-		<MaSach>MS002</MaSach>
-		<MaDocGia>DG002</MaDocGia>
-		<NgayTra>2023-12-20</NgayTra>
-		<SoLuongSach>3</SoLuongSach>
-	</IPhieu>
+  <IPhieu>
+    <Loai>Phiếu trả</Loai>
+    <MaPhieuTra>PT0002</MaPhieuTra>
+    <MaSach>S00003</MaSach>
+    <MaDocGia>DG0111</MaDocGia>
+    <NgayTra>2020-11-10</NgayTra>
+    <SoLuongSach>67</SoLuongSach>
+  </IPhieu>
 </DanhSachPhieu>

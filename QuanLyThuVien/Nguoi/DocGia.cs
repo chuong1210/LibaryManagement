@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QuanLyThuVien;
+using QuanLyThuVien.Nguoi;
 
 namespace QuanLyThuVien
 {
@@ -14,7 +15,7 @@ namespace QuanLyThuVien
         protected string diaChi;
         protected DateTime ngayDangki;
         protected string soCmt;
-        protected string gioitinh;
+        private string gioitinh;
         private string hoten;
         private int tuoi;
         public static double tienThe = 100000;
@@ -41,6 +42,7 @@ namespace QuanLyThuVien
         {
             if (madg.Length == 6)
             {
+                
                 string DG = madg.Substring(0, 2);
                 string so = madg.Substring(2, 4);
 
@@ -129,6 +131,7 @@ namespace QuanLyThuVien
         public int Tuoi { get => tuoi; set => tuoi = value; }
         public List<string> DanhSachSachMuon { get => danhSachSachMuon; set => danhSachSachMuon = value; }
         public string Hoten { get => hoten; set => hoten = value; }
+        public string Gioitinh { get => gioitinh; set => gioitinh = value; }
 
         public void themsachMuon(string tensach)
         {
@@ -160,7 +163,7 @@ namespace QuanLyThuVien
 
             Console.WriteLine("Họ tên: {0}", Hoten);
             Console.WriteLine("Tuổi: {0}", Tuoi);
-            Console.WriteLine("Giới tính: {0}", gioitinh);
+            Console.WriteLine("Giới tính: {0}", Gioitinh);
             Console.WriteLine("Mã độc giả: {0}", MaDg1);
             Console.WriteLine("Địa chỉ: {0}", DiaChi);
             Console.WriteLine("Ngày làm thẻ: {0}", NgayDangki);

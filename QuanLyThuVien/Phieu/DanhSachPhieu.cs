@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using QuanLyThuVien.Nguoi;
 
 namespace QuanLyThuVien.Phieu
 {
@@ -15,6 +16,9 @@ namespace QuanLyThuVien.Phieu
     {
 
         private List<IPhieu> danhSachPhieu;
+        DanhSachSach dss = new DanhSachSach();
+        DanhSachDocGia dsdg = new DanhSachDocGia();
+        PhuongThucDungChung ptdc= new PhuongThucDungChung();
 
         public DanhSachPhieu()
         {
@@ -128,20 +132,34 @@ namespace QuanLyThuVien.Phieu
                     doiTuongElement.AppendChild(loaiElement);
 
                     XmlElement MaPhieuMuonElement = doc.CreateElement("MaPhieuMuon");
-                    Console.WriteLine("Nhap ma phieu muon");
+                    Console.WriteLine("Nhập mã phiếu mượn");
                     string mpm = Console.ReadLine();
                     MaPhieuMuonElement.InnerText = mpm;
                     doiTuongElement.AppendChild(MaPhieuMuonElement);
 
                     XmlElement MaSachElement = doc.CreateElement("MaSach");
-                    Console.WriteLine("Nhap ma sách");
-                    string ms = Console.ReadLine();
+                    string ms;
+                    do
+                    {
+                        Console.WriteLine("Nhập mã sách: ");
+
+                        ms = Console.ReadLine();
+                    }
+                    while (ptdc.checkmaS(ms)==false || dss.checkMa(ms)==true);
                     MaSachElement.InnerText = ms;
                     doiTuongElement.AppendChild(MaSachElement);
 
                     XmlElement MaDocgiaElement = doc.CreateElement("MaDocGia");
-                    Console.WriteLine("Nhap ma độc giả");
-                    string madocgia = Console.ReadLine();
+                    string madocgia;
+                    do
+                    {
+
+
+                        Console.WriteLine("Nhập mã độc giả");
+                         madocgia = Console.ReadLine();
+                    }
+                    while (!ptdc.checkmaDg(madocgia) || dsdg.checkMa(madocgia));
+
                     MaDocgiaElement.InnerText = madocgia;
                     doiTuongElement.AppendChild(MaDocgiaElement);
 
@@ -161,6 +179,11 @@ namespace QuanLyThuVien.Phieu
                     doiTuongElement.AppendChild(SoLuongElement);
 
 
+                    int tong = sls;
+                    dss.ReadTuFileXML("../../Sach/DanhSachSach.xml");
+                    dss.UpdateQuantityFromID(ms, tong);
+
+
                 }
 
             else    if (loaiPhieu.Equals("phiếu trả") || loaiPhieu.Equals("phieu tra"))
@@ -178,14 +201,25 @@ namespace QuanLyThuVien.Phieu
                     doiTuongElement.AppendChild(MaPhieuMuonElement);
 
                     XmlElement MaSachElement = doc.CreateElement("MaSach");
-                    Console.WriteLine("Nhập mã sách: ");
-                    string ms = Console.ReadLine();
+                    string ms;
+                    do {
+                        Console.WriteLine("Nhập mã sách: ");
+
+                         ms = Console.ReadLine();
+                    }
+                    while (!ptdc.checkmaS(ms) || dss.checkMa(ms));
                     MaSachElement.InnerText = ms;
                     doiTuongElement.AppendChild(MaSachElement);
 
                     XmlElement MaDocgiaElement = doc.CreateElement("MaDocGia");
-                    Console.WriteLine("Nhap mã độc giả:");
-                    string madocgia = Console.ReadLine();
+                    string madocgia;
+                    do
+                    {
+                        Console.WriteLine("Nhập mã độc giả:");
+                         madocgia = Console.ReadLine();
+                    }
+                    while (!ptdc.checkmaDg(madocgia) || dsdg.checkMa(madocgia));
+
                     MaDocgiaElement.InnerText = madocgia;
                     doiTuongElement.AppendChild(MaDocgiaElement);
 
@@ -200,10 +234,13 @@ namespace QuanLyThuVien.Phieu
 
                     XmlElement SoLuongElement = doc.CreateElement("SoLuongSach");
                     Console.WriteLine("Nhap số lượng sách");
+                    
                     int sls = int.Parse(Console.ReadLine());
                     SoLuongElement.InnerText = sls.ToString();
                     doiTuongElement.AppendChild(SoLuongElement);
 
+                    int tong = -sls;
+                    dss.UpdateQuantityFromID(ms, tong);
 
                 }
             }
@@ -242,6 +279,12 @@ namespace QuanLyThuVien.Phieu
             danhSachPhieu.Remove(phieu);
         }
 
+        public void xoaTatCaPhieu()
+        {
+            danhSachPhieu.Clear();
+
+        }
+
         public List<IPhieu> LayDanhSachPhieu()
         {
             return danhSachPhieu;
@@ -269,5 +312,10 @@ namespace QuanLyThuVien.Phieu
             }
         }
 
+      
+        public bool checkMa(string ma)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace QuanLyThuVien
          double heSoSach;
         string chatluongsach;
         double giaBan;
-
+        int i = 0;
 
 
 
@@ -75,28 +75,36 @@ namespace QuanLyThuVien
 
         public double GiaBan
         {
+           
             get
             {
-                if (NamSanXuat > 0 &&NamSanXuat<=2 )
+                if (i == 0)
                 {
-                    this.chatluongsach = "Tốt";
-                    this.giaBan *= soLuong * 0.95;
-                }
-                else if (NamSanXuat > 2 && NamSanXuat  <=4)
-                {
-                    this.chatluongsach = "Khá";
-                    this.giaBan *= soLuong * 0.785;
+                    if (NamSanXuat > 0 && NamSanXuat <= 2)
+                    {
+                        this.giaBan *= soLuong * 0.95;
+                    }
+                    else if (NamSanXuat > 2 && NamSanXuat <= 4)
+                    {
+                        this.giaBan *= soLuong * 0.785;
+                    }
+                    else
+                    {
+                        this.giaBan *= soLuong * 0.65;
+                    }
+                    i++;
+
+                    return giaBan *= 1.1; //phi VAT
                 }
                 else
                 {
-                    this.chatluongsach = "Trung bình";
-                    this.giaBan *= soLuong * 0.65;
+                    return giaBan;
                 }
 
-                return giaBan*=1.1; //phi VAT
             }
 
-           
+
+
         }
 
         public int SoLuong

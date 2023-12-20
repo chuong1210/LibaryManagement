@@ -5,16 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using QuanLyThuVien.Nguoi;
 
 namespace QuanLyThuVien
 {
-   public class IPhieu:OperateXML
+    public class IPhieu : OperateXML
     {
         string MaSach;
         string MaDocGia;
         int SoLuongSach;
-
-        public IPhieu(string ms,string mdg,int sls)
+        DanhSachSach dss = new DanhSachSach();
+        DanhSachDocGia dsdg = new DanhSachDocGia();
+        PhuongThucDungChung ptdc = new PhuongThucDungChung();
+        public IPhieu(string ms, string mdg, int sls)
         {
             this.MaSach = ms;
             this.MaDocGia = mdg;
@@ -23,11 +26,11 @@ namespace QuanLyThuVien
 
         public IPhieu()
         {
-                
+
         }
         public string MaSach1 { get => MaSach; set => MaSach = value; }
         public string MaDocGia1 { get => MaDocGia; set => MaDocGia = value; }
-       
+
         public int SoLuongSach1 { get => SoLuongSach; set => SoLuongSach = value; }
 
         public void nhapDate(DateTime dt)
@@ -40,11 +43,11 @@ namespace QuanLyThuVien
                 // In ngày mượn đã nhập
                 Console.WriteLine("Ngày đã không hợp lệ. Hãy nhập theo định dạng dd/MM/yyyy HH:mm:ss: ");
 
-                 inputDate = Console.ReadLine();
+                inputDate = Console.ReadLine();
 
 
             }
-               dt = date;
+            dt = date;
 
 
         }
@@ -52,13 +55,27 @@ namespace QuanLyThuVien
         public virtual void NhapPhieu()
         {
 
-            Console.WriteLine("Nhập mã sách :");
-            MaSach = Console.ReadLine();
-            Console.WriteLine("Nhập mã độc giả :");
-            MaDocGia = Console.ReadLine();
-      
+            //dss.ReadTuFileXML("../../Sach/DanhSachSach.xml");
+            //dsdg.ReadTuFileXML("../../Nguoi/DanhSachDocGia.xml");
+            do
+            {
+                Console.WriteLine("Nhập mã sách :");
+                this.MaSach = Console.ReadLine();
+            } while (ptdc.checkmaS(MaSach) == false || dss.checkMa(MaSach)==true) ;
+         
+
+
+            do
+            {
+                Console.WriteLine("Nhập mã độc giả :");
+               this.MaDocGia = Console.ReadLine();
+            } while (!ptdc.checkmaDg(MaDocGia) || dsdg.checkMa(MaDocGia));
+
             Console.WriteLine("Nhập số lượng sách :");
             SoLuongSach = int.Parse(Console.ReadLine());
+
+
+
 
         }
 
@@ -72,6 +89,7 @@ namespace QuanLyThuVien
             throw new NotImplementedException();
         }
 
+
         public virtual void XuatPhieu()
         {
             Console.WriteLine("Mã sách :{0}", MaSach1);
@@ -80,6 +98,10 @@ namespace QuanLyThuVien
 
         }
 
+        public bool checkMa(string ma)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

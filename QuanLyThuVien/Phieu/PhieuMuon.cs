@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace QuanLyThuVien
@@ -11,6 +12,7 @@ namespace QuanLyThuVien
     {
         string  maPhieuMuon;
          DateTime NgayMuon;
+        DanhSachSach dss = new DanhSachSach();
 
         public PhieuMuon(string ms, string mdg, int sls,string mPm,DateTime nm) : base(ms, mdg, sls)
         {
@@ -19,20 +21,29 @@ namespace QuanLyThuVien
         }
         public PhieuMuon()
         {
-            
+       
+
         }
         public string MaPhieuMuon1 { get => maPhieuMuon; set => maPhieuMuon = value; }
         public DateTime NgayMuon1 { get => NgayMuon; set => NgayMuon = value; }
 
         public override void NhapPhieu()
         {
+            base.NhapPhieu();
+
             Console.WriteLine("Nhập mã phiếu mượn");
             maPhieuMuon = Console.ReadLine();
             Console.Write("Nhập ngày mượn sách theo định dạng (yyyy/MM/dd): ");
             NgayMuon = DateTime.ParseExact(Console.ReadLine(), "yyyy/MM/dd", CultureInfo.InvariantCulture);
        
-            base.NhapPhieu();
-            
+
+
+
+        
+          
+                dss.UpdateQuantityFromID(base.MaSach1,base.SoLuongSach1);
+
+
 
 
 
