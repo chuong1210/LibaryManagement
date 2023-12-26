@@ -37,6 +37,8 @@ namespace QuanLyThuVien
             {
                 case 1:
                     ManageDocGiaMenu(fileDsDocGia, danhSachDocGia);
+
+                        
                     break;
 
                 case 2:
@@ -94,6 +96,7 @@ namespace QuanLyThuVien
                     case 1:
                         Console.WriteLine("\nDanh sách độc giả:");
                         danhSachDocGia.XuatList();
+                        danhSachDocGia.CapNhatThongTinDocGia("../../Phieu/DanhSachPhieu.xml", "../../Sach/DanhSachSach.xml");
                         break;
 
                     case 2:

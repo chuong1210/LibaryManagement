@@ -299,7 +299,7 @@ namespace QuanLyThuVien.Nguoi
 
 
                     dg = new NguoiLon(gioitinh, ten, tuoi, madg, diachi, ngayDk, soCmt, cv);
-                    XmlNodeList sachNodes = node.SelectNodes("DanhSachSachMuon/Sach");
+                    XmlNodeList sachNodes = node.SelectNodes("DanhSachSachMuon");
 
                     if (sachNodes != null)
                     {
@@ -415,15 +415,18 @@ namespace QuanLyThuVien.Nguoi
                 int options;
 
                 Console.WriteLine("0 - Sinh viên   || 1 - Thiếu nhi || 2 - Người lớn");
-                Console.WriteLine("Cho biết Đối tượng độc giả cần quản lí: ");
+               
 
                 do 
                 {
-                    Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng nhập lại:");
+                    Console.WriteLine("Cho biết Đối tượng độc giả cần quản lí : ");
 
-                    int.TryParse(Console.ReadLine(), out options);
+                    while (!int.TryParse(Console.ReadLine(), out options) || options < 0 || options > 2)
+                    {
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng nhập lại:");
+                    }
 
-                }while (options < 0 || options > 2);
+                } while (options < 0 || options > 2);
                 Console.WriteLine($"Nhập phần tử cần thêm cho đối tượng {dgs[options]}");
 
                 int n;
@@ -463,7 +466,7 @@ namespace QuanLyThuVien.Nguoi
                     do
                     {
                         ma = Console.ReadLine();
-                        Console.WriteLine("Mã nhập đã tồn tại vui lòng nhập mã khác:");
+                        Console.WriteLine( "Mã nhập đã tồn tại hoặc sai cú pháp");
 
 
                     }
@@ -512,12 +515,12 @@ namespace QuanLyThuVien.Nguoi
                     {
                         XmlElement tenSachElement = doc.CreateElement("TenSach");
                         Console.WriteLine("Nhập tên sách đã đọc");
-                        XmlElement sachElement = doc.CreateElement("Sach");
-                        danhSachSachMuonElement.AppendChild(sachElement);
+                        //XmlElement sachElement = doc.CreateElement("Sach");
+                        //danhSachSachMuonElement.AppendChild(sachElement);
 
                         string TenSach = Console.ReadLine();
                         tenSachElement.InnerText = TenSach;
-                        sachElement.AppendChild(tenSachElement);
+                        danhSachSachMuonElement.AppendChild(tenSachElement);
                     }
 
 
@@ -705,7 +708,7 @@ namespace QuanLyThuVien.Nguoi
 
             
             }
-        public void CapNhatThongTinDocGia( string filePhieu)
+        public void CapNhatThongTinDocGia(string filePhieu, string fileSach)
         {
             XmlDocument docDocGia = new XmlDocument();
             docDocGia.Load(filestring);
@@ -713,30 +716,49 @@ namespace QuanLyThuVien.Nguoi
             XmlDocument docPhieu = new XmlDocument();
             docPhieu.Load(filePhieu);
 
+            XmlDocument docSach = new XmlDocument();
+            docSach.Load(fileSach);
+
             XmlNodeList nodeListDocGia = docDocGia.SelectNodes("/DanhSachDocGia/DocGia");
 
             XmlNodeList nodeListPhieu = docPhieu.SelectNodes("/DanhSachPhieu/IPhieu");
 
-            foreach (XmlNode nodeDocGia in nodeListDocGia)
+            foreach (XmlNode nodePhieu in nodeListPhieu)
             {
-                string maDocGia = nodeDocGia.SelectSingleNode("Ma").InnerText;
+                string maDocGiaPhieu = nodePhieu["MaDocGia"].InnerText;
 
-                XmlNode nodePhieu = nodeListPhieu.Cast<XmlNode>()
-                    .FirstOrDefault(phieu => phieu.SelectSingleNode("MaDocGia").InnerText == maDocGia);
+                XmlNode nodeDocGia = nodeListDocGia.Cast<XmlNode>()
+                    .FirstOrDefault(docGia => docGia.SelectSingleNode("Ma").InnerText == maDocGiaPhieu);
 
-                if (nodePhieu != null)
+                if (nodeDocGia != null)
                 {
-                    XmlNode nodeDanhSachSachMuon = nodeDocGia.SelectSingleNode("DanhSachSachMuon");
-                    int soSachDaDoc = nodeDanhSachSachMuon.ChildNodes.Count;
-                    nodePhieu.SelectSingleNode("SoLuongSach").InnerText = soSachDaDoc.ToString();
+                    XmlNodeList nodeListSachMuon = nodePhieu.SelectNodes("MaSach");
 
-                    int soLuongSachMuon = int.Parse(nodePhieu.SelectSingleNode("SoLuongSach").InnerText);
-                    int soLuongSachMoi = soLuongSachMuon - soSachDaDoc;
-                    nodePhieu.SelectSingleNode("SoLuongSach").InnerText = soLuongSachMoi.ToString();
+                    XmlNode danhSachSachMuonNode = nodeDocGia.SelectSingleNode("DanhSachSachMuon");
+
+                    foreach (XmlNode sachMuonNode in nodeListSachMuon)
+                    {
+                        string maSachMuon = sachMuonNode.InnerText;
+
+                        XmlNode sachTrongDanhSachSach = docSach.SelectSingleNode($"/DanhSachSach/Sach[Ma='{maSachMuon}']");
+
+                        if (sachTrongDanhSachSach != null)
+                        {
+                            string tenSachMuon = sachTrongDanhSachSach["TenSach"].InnerText;
+
+                            XmlNode sachTrongDanhSachSachMuon = docDocGia.CreateElement("TenSach");
+                            sachTrongDanhSachSachMuon.InnerText = tenSachMuon;
+                            danhSachSachMuonNode.AppendChild(sachTrongDanhSachSachMuon);
+
+                           
+                        }
+                    }
                 }
             }
 
-            docPhieu.Save(filePhieu);
+            docDocGia.Save(filestring);
+            ReadTuFileXML(filestring);
+
         }
 
         public void XoaThongTinDocGiatufileXml(string maDocGia)

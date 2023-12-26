@@ -333,7 +333,7 @@ namespace QuanLyThuVien
                 do
                 {
                     ms = Console.ReadLine();
-                    Console.WriteLine("Mã nhập đã tồn tại vui lòng nhập mã khác:");
+                    Console.WriteLine("Mã nhập đã tồn tại hoặc sai cú pháp");
 
                 }
                 while (checkMa(ms) == false||ptdc.checkmaS(ms)==false);
@@ -444,7 +444,7 @@ namespace QuanLyThuVien
                 do
                 {
                     ms = Console.ReadLine();
-                    Console.WriteLine("Mã nhập đã tồn tại vui lòng nhập mã khác:");
+                    Console.WriteLine("Mã nhập đã tồn tại hoặc sai cú pháp");
 
 
                 } while (checkMa(ms) == false || ptdc.checkmaS(ms) == false);
@@ -715,7 +715,7 @@ namespace QuanLyThuVien
                     }
 
 
-                    else if (nodeDanhSachSachMuon.InnerText == "Phiếu tra3")
+                    else if (nodeDanhSachSachMuon.InnerText == "Phiếu trả")
 
                     {
                         int tongsosach = int.Parse(nodeDocGia["SoLuong"].InnerText);

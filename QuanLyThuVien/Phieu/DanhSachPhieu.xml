@@ -3,9 +3,9 @@
   <IPhieu>
     <Loai>Phiếu trả</Loai>
     <MaPhieuTra>PT0002</MaPhieuTra>
-    <MaSach>S00003</MaSach>
-    <MaDocGia>DG0111</MaDocGia>
-    <NgayTra>2020-11-10</NgayTra>
-    <SoLuongSach>67</SoLuongSach>
+    <MaSach>S00004</MaSach>
+    <MaDocGia>DG0001</MaDocGia>
+    <NgayTra>2020-10-12</NgayTra>
+    <SoLuongSach>80</SoLuongSach>
   </IPhieu>
 </DanhSachPhieu>

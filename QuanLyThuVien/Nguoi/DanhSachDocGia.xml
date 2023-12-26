@@ -1,2 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<DanhSachDocGia />
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DanhSachDocGia>
+  <DocGia>
+    <GioiTinh>nam</GioiTinh>
+    <HoTen>binh gold</HoTen>
+    <Tuoi>21</Tuoi>
+    <Ma>DG0001</Ma>
+    <DiaChi>tan phu</DiaChi>
+    <NgayDangKi>2020-10-12</NgayDangKi>
+    <SoCMT>22222</SoCMT>
+    <DanhSachSachMuon>
+      <TenSach>bcaA</TenSach>
+      <TenSach>bcaA</TenSach>
+    </DanhSachSachMuon>
+    <Loai>Người lớn</Loai>
+    <CongViec>giao vien</CongViec>
+  </DocGia>
+</DanhSachDocGia>
